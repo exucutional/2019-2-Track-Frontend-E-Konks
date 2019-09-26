@@ -14,9 +14,13 @@ test('Возвращает false для неправильного типа да
 });
 
 test('Возвращает корректное значение для чисел', () => {
-  expect(convertBytesToHuman(0)).toBe(0)
-  expect(convertBytesToHuman(123)).toBe(123)
-  expect(convertBytesToHuman(999999.1234)).toBe(999999.1234)
+  expect(convertBytesToHuman(0)).toBe('0B')
+  expect(convertBytesToHuman(123)).toBe('123B')
+  expect(convertBytesToHuman(1024)).toBe('1KB')
+  expect(convertBytesToHuman(1024 * 1024)).toBe('1MB');
+  expect(convertBytesToHuman(1024 * 1024 + 300)).toBe('1.29MB')
+  expect(convertBytesToHuman(1024 * 1024 * 1024 * 50)).toBe('50GB')
+  expect(convertBytesToHuman(1024 * 1024 * 1024 * 1024 + 500)).toBe('1.49TB')
 });
 
 // другая группа проверок
