@@ -1,6 +1,7 @@
 {
   "name": "track-mail-2019-root",
   "description": "Mail.Ru Group Frontend Track course, 2019",
+  "homepage" : "https://exucutional.github.io/2019-2-Track-Frontend-E-Konks",
   "version": "0.1.0",
   "author": "Root",
   "dependencies": {
@@ -10,6 +11,7 @@
     "babel-preset-stage-0": "^6.24.1",
     "cross-env": "^5.2.0",
     "dotenv": "^8.0.0",
+    "express": "^4.17.1",
     "node-sass": "^4.12.0",
     "normalize.css": "^8.0.1",
     "postcss": "^7.0.17",
@@ -25,9 +27,11 @@
     "sass-loader": "^7.1.0"
   },
   "devDependencies": {
+    "@babel/core": "^7.6.2",
     "@babel/plugin-proposal-class-properties": "^7.5.5",
-    "@babel/preset-env": "^7.5.5",
+    "@babel/preset-env": "^7.6.2",
     "@babel/preset-react": "^7.0.0",
+    "@babel/register": "^7.6.2",
     "@wemake-services/eslint-config-javascript": "^0.3.0",
     "@wemake-services/eslint-config-jest": "^0.1.5",
     "@wemake-services/eslint-config-jsdoc": "^0.3.0",
@@ -78,7 +82,7 @@
     "lint": "npm run lint:js && npm run lint:dup && npm run lint:css",
     "lint-fix": "eslint --fix",
     "clean": "rm -rf dist",
-    "test": "npm run test:engine && npm run test:unit && npm run lint",
+    "test": "CI=true npm run test:engine && npm run test:unit && npm run lint",
     "test:engine": "check-engine",
     "test:sec": "npm audit || true",
     "test:unit": "cross-env NODE_ENV=test jest",
