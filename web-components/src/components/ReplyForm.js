@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 const template = document.createElement('template');
 template.innerHTML = `
     <style>
@@ -54,21 +55,20 @@ template.innerHTML = `
 `;
 
 class ReplyForm extends HTMLElement {
-    constructor () {
-        super();
-        this._shadowRoot = this.attachShadow({ mode: 'open' });
-        this._shadowRoot.appendChild(template.content.cloneNode(true));
+  constructor() {
+    super();
+    this._shadowRoot = this.attachShadow({ mode: 'open' });
+    this._shadowRoot.appendChild(template.content.cloneNode(true));
 
-        this.$form = this._shadowRoot.querySelector('form');
-        this.$name = this._shadowRoot.querySelector('.name');
-        this.$time = this._shadowRoot.querySelector('.time');
-        this.$message = this._shadowRoot.querySelector('.message');
-    }
+    this.$form = this._shadowRoot.querySelector('form');
+    this.$name = this._shadowRoot.querySelector('.name');
+    this.$time = this._shadowRoot.querySelector('.time');
+    this.$message = this._shadowRoot.querySelector('.message');
+  }
 
-    attributeChangedCallback(name, oldValue, newValue) {
-        this.setAttribute(name, newValue);
-    }
+  attributeChangedCallback(name, oldValue, newValue) {
+    this.setAttribute(name, newValue);
+  }
 }
 
 customElements.define('reply-form', ReplyForm);
-
