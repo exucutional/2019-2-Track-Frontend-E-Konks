@@ -86,10 +86,10 @@ class MessageForm extends HTMLElement {
         reply.$message.innerText = this.$input.value;
         reply.$name.innerText = 'Name';
         let date = new Date();
-        h = date.getHours();
-        h = (h < 10) ? '0' + h : h;
-        m = date.getMinutes();
-        m = (m < 10) ? '0' + m : m; 
+        let h = date.getHours();
+        let h = (h < 10) ? '0' + h : h;
+        let m = date.getMinutes();
+        let m = (m < 10) ? '0' + m : m; 
         reply.$time.innerText = h + ':' + m;
         this.$reply_block.append(reply);
         this.$reply_block.scrollTop = this.$reply_block.scrollHeight;

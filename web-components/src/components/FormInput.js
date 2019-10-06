@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 const template = document.createElement('template');
 template.innerHTML = `
     <style>
@@ -43,7 +44,7 @@ class FormInput extends HTMLElement {
     }
 
     get value() {
-        result = this.$input.value;
+        const result = this.$input.value;
         this.$input.value = '';
         return result;
     }
