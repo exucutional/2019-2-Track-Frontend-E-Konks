@@ -4,15 +4,25 @@ template.innerHTML = `
         input {
             border: 0;
             outline: none;
-            width: calc(100% - 2px);
+            width: calc(100%);
+            font-size: 30px;
+        } 
+        .paperclip {
+            width: 5%;
+            transform: rotate(90deg);
         }
-
         :host {
-            display: inline-block;
+            display: flex;
             border: 1px solid rgba(25, 25, 25, 0.32);
         }
     </style>
     <input type="text">
+    <object
+        class="paperclip"
+        type="image/svg+xml"
+        data="data/paperclip.svg">
+        <img src="data/paperclip.svg">
+    </object>
 `;
 
 class FormInput extends HTMLElement {
@@ -33,7 +43,9 @@ class FormInput extends HTMLElement {
     }
 
     get value() {
-        return this.$input.value;
+        result = this.$input.value;
+        this.$input.value = '';
+        return result;
     }
 }
 
