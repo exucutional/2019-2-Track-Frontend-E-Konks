@@ -75,13 +75,15 @@ class MessageForm extends HTMLElement {
 
   loadConversation() {
     const log = localStorage.getItem('local');
-    const conversation = JSON.parse(log);
-    for (reply of conversation) {
-      const replyf = document.createElement('reply-form');
-      replyf.$message.innerText = reply.message;
-      replyf.$name.innerText = reply.name;
-      replyf.$time.innerText = reply.time;
-      this.$reply_block.append(replyf);
+    if (log) {
+      const conversation = JSON.parse(log);
+      for (reply of conversation) {
+        const replyf = document.createElement('reply-form');
+        replyf.$message.innerText = reply.message;
+        replyf.$name.innerText = reply.name;
+        replyf.$time.innerText = reply.time;
+        this.$reply_block.append(replyf);
+      }
     }
   }
 
@@ -98,7 +100,7 @@ class MessageForm extends HTMLElement {
     reply.$time.innerText = h + ':' + m;
     this.$reply_block.append(reply);
     this.$reply_block.scrollTop = this.$reply_block.scrollHeight;
-    MessageForm.save(reply.$name.innerText, reply.$time.innerText, reply.$message.innerText);
+    this.save(reply.$name.innerText, reply.$time.innerText, reply.$message.innerText);
     // this.$message.innerText = this.$input.value;
   }
 
