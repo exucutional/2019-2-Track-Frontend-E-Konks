@@ -3,8 +3,6 @@ const template = document.createElement('template');
 template.innerHTML = `
     <style>
         input {
-            border: 0;
-            outline: none;
             width: calc(100%);
             font-size: 30px;
         } 

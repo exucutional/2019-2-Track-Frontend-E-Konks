@@ -35,14 +35,35 @@ template.innerHTML = `
         }
 
         .head {
-            display: block;
+            display: flex;
             color: white;
-            text-align: center;
             background: orange;
             margin: unset;
             padding: 20px;
             margin-bottom: 2px;
             font-family: monospace;
+            flex-direction: row;
+            height: 0.5em;
+        }
+
+        .obj-back-button {
+            display: flex;
+            width: 1.5em;
+            height: 2em;
+            pointer-events: none;
+            margin-top: -0.6em;
+        }
+
+        .back-button {
+          display: flex;
+          height: 1em;
+          margin-top: -0.2em
+        }
+      
+        .title {
+          display: flex;
+          flex: 1;
+          justify-content: center;
         }
 
         input[type=submit] {
@@ -51,7 +72,17 @@ template.innerHTML = `
     </style>
     <form>
         <div class="flex-container">
-            <h1 class="head">Chat Screen</h1>
+            <h1 class="head">
+                <div class="back-button">
+                  <object
+                      class="obj-back-button"
+                      type="image/svg+xml"
+                      data="data/angle-left.svg">
+                      <img src="data/angle-left.svg">
+                  </object>
+                </div>
+                <span class="title">Chat Screen</span>
+            </h1>
             <div class="reply-block">
             </div>
             <form-input name="message-text" placeholder="Введите сообщение"></form-input>
@@ -66,23 +97,38 @@ class MessageForm extends HTMLElement {
     this._shadowRoot.appendChild(template.content.cloneNode(true));
     this.$form = this._shadowRoot.querySelector('form');
     this.$input = this._shadowRoot.querySelector('form-input');
-    this.$reply_block = this._shadowRoot.querySelector('.reply-block');
+    this.$replyBlock = this._shadowRoot.querySelector('.reply-block');
+    this.$backButton = this._shadowRoot.querySelector('.back-button');
+    this.$chatName = this.getAttribute('name') || null;
 
     this.$form.addEventListener('submit', this._onSubmit.bind(this));
     this.$form.addEventListener('keypress', this._onKeyPress.bind(this));
-    this.loadConversation();
+    this.$backButton.addEventListener('click', this._onClickBack.bind(this));
+    this.load();
   }
 
-  loadConversation() {
-    const log = localStorage.getItem('local');
-    if (log) {
-      const conversation = JSON.parse(log);
-      for (reply of conversation) {
-        const replyf = document.createElement('reply-form');
-        replyf.$message.innerText = reply.message;
-        replyf.$name.innerText = reply.name;
-        replyf.$time.innerText = reply.time;
-        this.$reply_block.append(replyf);
+  static get observedAttributes() {
+    return ['name'];
+  }
+
+  // eslint-disable-next-line no-unused-vars
+  attributeChangedCallBack(name, oldValue, newValue) {
+    this.load();
+  }
+
+  load() {
+    const jsonIn = localStorage.getItem('chats');
+    if (jsonIn) {
+      const chats = JSON.parse(jsonIn);
+      chat = chats.find((ch) => ch.name === this.$chatName);
+      if (chat && this.$chatName) {
+        for (reply of chat.conversation) {
+          const replyf = document.createElement('reply-form');
+          replyf.$message.innerText = reply.message;
+          replyf.$name.innerText = reply.name;
+          replyf.$time.innerText = reply.time;
+          this.$replyBlock.append(replyf);
+        }
       }
     }
   }
@@ -98,8 +144,8 @@ class MessageForm extends HTMLElement {
     let m = date.getMinutes();
     m = (m < 10) ? '0' + m : m;
     reply.$time.innerText = h + ':' + m;
-    this.$reply_block.append(reply);
-    this.$reply_block.scrollTop = this.$reply_block.scrollHeight;
+    this.$replyBlock.append(reply);
+    this.$replyBlock.scrollTop = this.$replyBlock.scrollHeight;
     this.save(reply.$name.innerText, reply.$time.innerText, reply.$message.innerText);
     // this.$message.innerText = this.$input.value;
   }
@@ -110,20 +156,33 @@ class MessageForm extends HTMLElement {
       time: time_,
       message: message_,
     };
-    const indata = localStorage.getItem('local');
-    let conversation = [];
-    if (indata) {
-      conversation = JSON.parse(indata);
+    let chat = {
+      name: this.$chatName,
+      conversation: [],
+    };
+    let chats = [chat];
+    const jsonIn = localStorage.getItem('chats');
+    if (jsonIn) {
+      chats = JSON.parse(jsonIn);
+      chat = chats.find((ch) => ch.name === this.$chatName);
     }
-    conversation.push(reply);
-    const outdata = JSON.stringify(conversation);
-    localStorage.setItem('local', outdata);
+    chat.conversation.push(reply);
+    const outdata = JSON.stringify(chats);
+    localStorage.setItem('chats', outdata);
   }
 
   _onKeyPress(event) {
     if (event.keyCode === 13) {
       this.$form.dispatchEvent(new Event('submit'));
     }
+  }
+
+  _onClickBack(event) {
+    event.preventDefault();
+    const chatList = document.createElement('chat-list-form');
+    document.querySelector('message-form').remove();
+    document.querySelector('body').append(chatList);
+    console.log('click');
   }
 }
 

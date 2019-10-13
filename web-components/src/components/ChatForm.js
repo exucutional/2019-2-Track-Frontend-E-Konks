@@ -1,3 +1,4 @@
+/* eslint-disable linebreak-style */
 /* eslint-disable class-methods-use-this */
 /* eslint-disable linebreak-style */
 const template = document.createElement('template');
@@ -36,13 +37,13 @@ class ChatForm extends HTMLElement {
 
     this.$form = this._shadowRoot.querySelector('form');
     this.$name = this._shadowRoot.querySelector('.name');
-    this.$name.innerHTML = this.getAttribute('name') || undefined;
+    this.$name.innerHTML = this.getAttribute('name') || null;
     this.$last_message = this._shadowRoot.querySelector('.last-message');
-    this.$last_message.innerHTML = this.getAttribute('last-message') || undefined;
+    this.$last_message.innerHTML = this.getAttribute('last-message') || null;
     this.$time = this._shadowRoot.querySelector('.time');
-    this.$time.innerHTML = this.getAttribute('time') || undefined;
+    this.$time.innerHTML = this.getAttribute('time') || null;
     this.$indicator = this._shadowRoot.querySelector('.indicator');
-    this.$indicator.innerHTML = this.getAttribute('indicator') || undefined;
+    this.$indicator.innerHTML = this.getAttribute('indicator') || null;
 
     this.$form.addEventListener('click', this._onClick.bind(this));
   }
@@ -65,7 +66,11 @@ class ChatForm extends HTMLElement {
 
   _onClick(event) {
     event.preventDefault();
-    console.log('click');
+    const chat = document.createElement('message-form');
+    chat.$chatName = this.$name.innerHTML;
+    chat.load();
+    document.querySelector('chat-list-form').remove();
+    document.querySelector('body').append(chat);
   }
 }
 
