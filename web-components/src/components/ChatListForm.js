@@ -15,6 +15,10 @@ template.innerHTML = `
             flex-direction: column;
             overflow-y: auto;
         }
+
+        .flex-container {
+            display: flex;
+        }
     </style>
     <form>
         <chat-head-form></chat-head-form>
