@@ -8,7 +8,6 @@ template.innerHTML = `
             display: inherit;
         }
 
-
         input {
             display: inherit;
             width: 100%;

@@ -12,18 +12,79 @@ template.innerHTML = `
             display: flex;
             flex-direction: column;
         }
+
+        .name {
+            font-size: 30px;
+            margin-right: 10px;
+            margin-left: 10px;
+        }
+
+        .last-message {
+            color: darkgrey;
+            font-size: 20px;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            margin-left: 20px;
+        }
+
+        .time {
+            font-size: 18px;
+            color: darkgrey;
+            margin-left: 25px
+        }
+
+        .border-bottom {
+            border-bottom: 2px solid darkgrey;
+            padding-bottom: 10px;
+            width: 20em;
+            justify-content: space-between;
+        }
+
+        .top {
+            align-items: baseline;
+            justify-content: space-between;
+        }
+
+        .margin-top {
+            margin-top: 10px;
+        }
+
+        .indicator {
+
+        }
+
+        form {
+          margin-left: 5px;
+        }
+
+        .check-mark  {
+          display: none;
+          width: 0.9em;
+        }
     </style>
     <form>
-        <div class='flex-container-row'>
-            <div class='flex-container-row'>
-                <div class='flex-container-column'>
+        <div class='flex-container-row margin-top'>
+            <svg width="50px" height="50px" viewBox="0 0 32 32">
+                <circle cx="16" cy="16" r="16" fill="red"/>
+            <div class='flex-container-column'>
+                <div class='flex-container-row top'>
                     <span class='name'></span>
-                    <span class='last-message'></span>
-                </div>
-                <div class='flex-container-column'>
                     <span class='time'></span>
-                    <span class='indicator'></span>
                 </div>
+                <div class='flex-container-row bot border-bottom'>
+                    <span class='last-message'></span>
+                    <span class='indicator'></span>
+                    <div class='check-mark'>
+                      <object
+                        class='check-mark-obj'
+                        type='image/svg+xml'
+                        data='data/tick.svg'>
+                        <img src="data/tick.svg">
+                      </object>
+                    </div>
+                </div>
+                <div class='create-chat-button'>
             </div>
         </div>
     </form>
@@ -42,8 +103,8 @@ class ChatForm extends HTMLElement {
     this.$last_message.innerHTML = this.getAttribute('last-message') || null;
     this.$time = this._shadowRoot.querySelector('.time');
     this.$time.innerHTML = this.getAttribute('time') || null;
-    this.$indicator = this._shadowRoot.querySelector('.indicator');
-    this.$indicator.innerHTML = this.getAttribute('indicator') || null;
+    this.$indicator = this._shadowRoot.querySelector('.check-mark');
+    this.$indicator.display = this.getAttribute('indicator') || null;
 
     this.$form.addEventListener('click', this._onClick.bind(this));
   }
@@ -58,10 +119,6 @@ class ChatForm extends HTMLElement {
 
   set time(value) {
     this.$time.innerHTML = value;
-  }
-
-  set indicator(value) {
-    this.$indicator.innerHTML = value;
   }
 
   _onClick(event) {

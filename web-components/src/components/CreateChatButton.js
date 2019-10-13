@@ -1,7 +1,7 @@
 /* eslint-disable linebreak-style */
 /* eslint-disable class-methods-use-this */
 /* eslint-disable linebreak-style */
-import './createChatForm';
+import './CreateChatForm';
 
 const template = document.createElement('template');
 template.innerHTML = `
@@ -13,13 +13,16 @@ template.innerHTML = `
 
     .create-chat-button {
         width: 2em;
-        position: absolute;
+        position: fixed;
         right: 20px;
         bottom: 20px;
     }
 
     create-chat-form {
         display: none;
+        margin: 1em;
+        border: solid;
+        width: fit-content;
     }
     </style>
     <form>
@@ -51,6 +54,7 @@ class CreateChatButton extends HTMLElement {
   _onClickCreateChat(event) {
     event.preventDefault();
     this.$createChatForm.style.display = 'flex';
+    document.querySelector('html').scrollTop += document.querySelector('html').scrollHeight;
   }
 
   _onKeyPress(event) {

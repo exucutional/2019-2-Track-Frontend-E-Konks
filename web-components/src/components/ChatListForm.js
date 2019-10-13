@@ -1,15 +1,23 @@
+/* eslint-disable linebreak-style */
 /* eslint-disable prefer-destructuring */
 /* eslint-disable linebreak-style */
 /* eslint-disable no-restricted-syntax */
 /* eslint-disable class-methods-use-this */
 /* eslint-disable linebreak-style */
 import './CreateChatButton';
+import './ChatHeadForm';
 
 const template = document.createElement('template');
 template.innerHTML = ` 
     <style>
+        .chat-block {
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+        }
     </style>
     <form>
+        <chat-head-form></chat-head-form>
         <div class='flex-container'>
             <div class='chat-block'></div>
         </div>
@@ -33,6 +41,7 @@ class ChatListForm extends HTMLElement {
 
   load() {
     const jsonIn = localStorage.getItem('chats');
+    this.$chatBlock.innerHTML = '';
     if (jsonIn) {
       const chats = JSON.parse(jsonIn);
       for (const chat of chats) {
@@ -42,6 +51,7 @@ class ChatListForm extends HTMLElement {
           const lastReply = chat.conversation.slice(-1)[0];
           chatf.lastMessage = lastReply.message;
           chatf.time = lastReply.time;
+          chatf.$indicator.style.display = 'block';
         }
         this.$chatBlock.append(chatf);
       }
@@ -61,15 +71,18 @@ class ChatListForm extends HTMLElement {
     chats.push(saveForm);
     const outdata = JSON.stringify(chats);
     localStorage.setItem('chats', outdata);
+    this.load();
   }
 
   _onSubmit(event) {
     event.preventDefault();
     const chatf = document.createElement('chat-form');
     const chatName = this.$createChatButton.chatName;
-    chatf.name = chatName;
-    this.$chatBlock.append(chatf);
-    this.save(chatName);
+    if (chatName) {
+      chatf.name = chatName;
+      this.$chatBlock.append(chatf);
+      this.save(chatName);
+    }
   }
 }
 

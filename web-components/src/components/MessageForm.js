@@ -69,6 +69,10 @@ template.innerHTML = `
         input[type=submit] {
             visibility: collapse;
         }
+
+        form-input {
+          height: 2em;
+        }
     </style>
     <form>
         <div class="flex-container">
@@ -182,7 +186,6 @@ class MessageForm extends HTMLElement {
     const chatList = document.createElement('chat-list-form');
     document.querySelector('message-form').remove();
     document.querySelector('body').append(chatList);
-    console.log('click');
   }
 }
 
