@@ -39,7 +39,7 @@ template.innerHTML = `
             color: white;
             background: orange;
             margin: unset;
-            padding: 20px;
+            padding: 15px;
             margin-bottom: 2px;
             font-family: monospace;
             flex-direction: row;
@@ -131,6 +131,9 @@ class MessageForm extends HTMLElement {
           replyf.$message.innerText = reply.message;
           replyf.$name.innerText = reply.name;
           replyf.$time.innerText = reply.time;
+          if (reply.name === 'You') {
+            replyf.style['align-self'] = 'flex-end';
+          }
           this.$replyBlock.append(replyf);
         }
       }
@@ -141,14 +144,19 @@ class MessageForm extends HTMLElement {
     event.preventDefault();
     const reply = document.createElement('reply-form');
     reply.$message.innerText = this.$input.value;
+    console.log(this.$input.name);
+    const { name, host } = this.$input.name;
     if (reply.$message.innerText) {
-      reply.$name.innerText = 'Name';
+      reply.$name.innerText = name;
       const date = new Date();
       let h = date.getHours();
       h = (h < 10) ? '0' + h : h;
       let m = date.getMinutes();
       m = (m < 10) ? '0' + m : m;
       reply.$time.innerText = h + ':' + m;
+      if (host) {
+        reply.style['align-self'] = 'flex-end';
+      }
       this.$replyBlock.append(reply);
       this.$replyBlock.scrollTop = this.$replyBlock.scrollHeight;
       this.save(reply.$name.innerText, reply.$time.innerText, reply.$message.innerText);

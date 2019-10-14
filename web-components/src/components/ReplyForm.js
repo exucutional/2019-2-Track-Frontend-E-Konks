@@ -19,6 +19,7 @@ template.innerHTML = `
         .flex-container-column {
             display: flex;
             flex-direction: column;
+            margin-bottom: 10px;
         }
 
         .flex-container-row {
@@ -38,6 +39,7 @@ template.innerHTML = `
         .time {
             font-size: 15px;
             color: darkgrey;
+            margin-right: 10px;
         }
     </style>
     <form>
