@@ -144,7 +144,6 @@ class MessageForm extends HTMLElement {
     event.preventDefault();
     const reply = document.createElement('reply-form');
     reply.$message.innerText = this.$input.value;
-    console.log(this.$input.name);
     const { name, host } = this.$input.name;
     if (reply.$message.innerText) {
       reply.$name.innerText = name;
