@@ -4,12 +4,11 @@ template.innerHTML = `
     <style>
         input {
             border: 0;
-            outline: none;
             width: calc(100%);
             font-size: 30px;
         } 
         .paperclip {
-            width: 5%;
+            width: 2em;
             transform: rotate(90deg);
         }
         :host {
@@ -18,12 +17,7 @@ template.innerHTML = `
         }
     </style>
     <input type="text">
-    <object
-        class="paperclip"
-        type="image/svg+xml"
-        data="data/paperclip.svg">
-        <img src="data/paperclip.svg">
-    </object>
+    <img class='paperclip' src="data/paperclip.svg">
 `;
 
 class FormInput extends HTMLElement {
