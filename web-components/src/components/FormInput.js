@@ -17,7 +17,7 @@ template.innerHTML = `
         }
     </style>
     <input type="text">
-    <img class='paperclip' src="/data/paperclip.svg">
+    <img class='paperclip' src="data/paperclip.svg">
 `;
 
 class FormInput extends HTMLElement {
