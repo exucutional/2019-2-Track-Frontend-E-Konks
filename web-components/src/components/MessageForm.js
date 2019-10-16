@@ -91,16 +91,18 @@ class MessageForm extends HTMLElement {
     event.preventDefault();
     const reply = document.createElement('reply-form');
     reply.$message.innerText = this.$input.value;
-    reply.$name.innerText = 'Name';
-    const date = new Date();
-    let h = date.getHours();
-    h = (h < 10) ? '0' + h : h;
-    let m = date.getMinutes();
-    m = (m < 10) ? '0' + m : m;
-    reply.$time.innerText = h + ':' + m;
-    this.$reply_block.append(reply);
-    this.$reply_block.scrollTop = this.$reply_block.scrollHeight;
-    this.save(reply.$name.innerText, reply.$time.innerText, reply.$message.innerText);
+    if (reply.$message.innerText) {
+      reply.$name.innerText = 'Name';
+      const date = new Date();
+      let h = date.getHours();
+      h = (h < 10) ? '0' + h : h;
+      let m = date.getMinutes();
+      m = (m < 10) ? '0' + m : m;
+      reply.$time.innerText = h + ':' + m;
+      this.$reply_block.append(reply);
+      this.$reply_block.scrollTop = this.$reply_block.scrollHeight;
+      this.save(reply.$name.innerText, reply.$time.innerText, reply.$message.innerText);
+    }
     // this.$message.innerText = this.$input.value;
   }
 
