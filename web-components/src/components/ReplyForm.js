@@ -12,7 +12,7 @@ template.innerHTML = `
             border-radius: 20px;
             border-color: coral;
             width: fit-content;
-            max-width: 300px;
+            max-width: 600px;
             margin-left: 20px;
         }
 
