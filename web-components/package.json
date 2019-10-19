@@ -1,4 +1,9 @@
 {
+  "name": "track-mail-2019-root",
+  "description": "Mail.Ru Group Frontend Track course, 2019",
+  "homepage": "https://exucutional.github.io/2019-2-Track-Frontend-E-Konks",
+  "version": "0.1.0",
+  "author": "Exucutional",
   "private": true,
   "scripts": {
     "test": "npm run lint",
