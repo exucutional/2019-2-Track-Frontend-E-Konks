@@ -147,4 +147,5 @@ jest_*/
 .jscpd/
 
 #### vscode ####
-.code-workspace
+*.code-workspace
+*.vscode
