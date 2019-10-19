@@ -10,6 +10,7 @@ template.innerHTML = `
             display: flex;
             width: 100%;
             align-self: flex-end;
+            height: 10vh;
         }
 
         .reply {
@@ -36,57 +37,44 @@ template.innerHTML = `
 
         .head {
             display: flex;
-            color: white;
-            background: orange;
-            margin: unset;
-            padding: 15px;
-            margin-bottom: 2px;
+            background: #C8A2C8;
             font-family: monospace;
             flex-direction: row;
-            height: 0.5em;
-        }
-
-        .obj-back-button {
-            display: flex;
-            width: 1.5em;
-            height: 2em;
-            pointer-events: none;
-            margin-top: -0.6em;
+            height: 6.5vh;
+            margin-bottom: 10px;
         }
 
         .back-button {
           display: flex;
-          height: 1em;
-          margin-top: -0.2em
+          height: auto;
+          max-width: 3em;
+          margin-top: -0.25em;
+          margin-left: 10px;
         }
       
         .title {
           display: flex;
           flex: 1;
           justify-content: center;
+          font-size: 6.5vh;
+          align-self: center;
         }
 
         input[type=submit] {
-            visibility: collapse;
+          visibility: collapse;
         }
 
-        form-input {
-          height: 2em;
+        reply-form {
+          margin-right: 10px;
+          margin-left: 10px;
         }
     </style>
     <form>
         <div class="flex-container">
-            <h1 class="head">
-                <div class="back-button">
-                  <object
-                      class="obj-back-button"
-                      type="image/svg+xml"
-                      data="data/angle-left.svg">
-                      <img src="data/angle-left.svg">
-                  </object>
-                </div>
+            <span class="head">
+                <img src="https://image.flaticon.com/icons/svg/109/109618.svg" class='back-button'>
                 <span class="title">Chat Screen</span>
-            </h1>
+            </span>
             <div class="reply-block">
             </div>
             <form-input name="message-text" placeholder="Введите сообщение"></form-input>

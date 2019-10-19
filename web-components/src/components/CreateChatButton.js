@@ -6,13 +6,8 @@ import './CreateChatForm';
 const template = document.createElement('template');
 template.innerHTML = `
     <style>
-    .create-chat-button-obj {
-        width: 2em;
-        pointer-events: none;
-    }
-
     .create-chat-button {
-        width: 2em;
+        width: 2.5em;
         position: fixed;
         right: 20px;
         bottom: 20px;
@@ -27,14 +22,7 @@ template.innerHTML = `
     </style>
     <form>
         <create-chat-form></create-chat-form>
-        <div class='create-chat-button'>
-            <object
-                class="create-chat-button-obj"
-                type="image/svg+xml"
-                data="data/pen.svg">
-                <img src="data/pen.svg">
-            </object>
-        </div>
+        <img src='https://image.flaticon.com/icons/svg/1159/1159633.svg' class='create-chat-button'>
     </form
 `;
 

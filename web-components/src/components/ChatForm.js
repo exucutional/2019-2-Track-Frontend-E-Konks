@@ -37,7 +37,7 @@ template.innerHTML = `
         .border-bottom {
             border-bottom: 2px solid darkgrey;
             padding-bottom: 10px;
-            width: 20em;
+            width: 80vw;
             justify-content: space-between;
         }
 
@@ -55,18 +55,18 @@ template.innerHTML = `
         }
 
         form {
-          margin-left: 5px;
+            margin-left: 5px;
         }
 
         .check-mark  {
-          display: none;
-          width: 0.9em;
+            display: none;
+            width: 0.9em;
         }
     </style>
     <form>
         <div class='flex-container-row margin-top'>
             <svg width="50px" height="50px" viewBox="0 0 32 32">
-                <circle cx="16" cy="16" r="16" fill="red"/>
+                <circle cx="16" cy="16" r="16" fill='rgba(25, 91, 125, 0.69)'/>
             <div class='flex-container-column'>
                 <div class='flex-container-row top'>
                     <span class='name'></span>
@@ -75,14 +75,7 @@ template.innerHTML = `
                 <div class='flex-container-row bot border-bottom'>
                     <span class='last-message'></span>
                     <span class='indicator'></span>
-                    <div class='check-mark'>
-                      <object
-                        class='check-mark-obj'
-                        type='image/svg+xml'
-                        data='data/tick.svg'>
-                        <img src="data/tick.svg">
-                      </object>
-                    </div>
+                    <img src='https://image.flaticon.com/icons/svg/446/446191.svg' class='check-mark'>
                 </div>
                 <div class='create-chat-button'>
             </div>

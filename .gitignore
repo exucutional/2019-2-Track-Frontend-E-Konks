@@ -148,3 +148,4 @@ jest_*/
 
 #### vscode ####
 *.code-workspace
+*.vscode

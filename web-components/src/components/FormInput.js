@@ -5,10 +5,11 @@ template.innerHTML = `
         input {
             width: calc(100%);
             font-size: 30px;
+            border: none;
         } 
 
         .paperclip {
-            width: 5%;
+            max-width: 3em;
             transform: rotate(90deg);
         }
 
@@ -22,6 +23,7 @@ template.innerHTML = `
             width: 30em;
             display: flex;
             align-items: center;
+            margin-right: 10px;
         }
 
         input[type='radio'] {
@@ -35,12 +37,7 @@ template.innerHTML = `
           <input type='radio' name='name' value='You' checked>You
           <input type='radio' name='name' value='Companion'>Companion
       </div>
-      <object
-          class="paperclip"
-          type="image/svg+xml"
-          data="data/paperclip.svg">
-          <img src="data/paperclip.svg">
-      </object>
+      <img src='https://image.flaticon.com/icons/svg/54/54848.svg' class='paperclip'>
 `;
 
 class FormInput extends HTMLElement {
