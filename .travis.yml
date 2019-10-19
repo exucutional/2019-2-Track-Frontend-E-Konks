@@ -22,4 +22,5 @@ deploy:
     branch:
       - master
       - devel
-      - /^hw\d+$/
+      # /^hw\d+$/ not working(
+      - hw3
