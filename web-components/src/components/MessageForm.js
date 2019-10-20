@@ -10,6 +10,7 @@ template.innerHTML = `
             display: flex;
             width: 100%;
             align-self: flex-end;
+            height: 10vh;
         }
 
         .reply {
@@ -35,23 +36,45 @@ template.innerHTML = `
         }
 
         .head {
-            display: block;
-            color: white;
-            text-align: center;
-            background: orange;
-            margin: unset;
-            padding: 20px;
-            margin-bottom: 2px;
+            display: flex;
+            background: #C8A2C8;
             font-family: monospace;
+            flex-direction: row;
+            height: 6.5vh;
+            margin-bottom: 10px;
+        }
+
+        .back-button {
+          display: flex;
+          height: auto;
+          max-width: 3em;
+          margin-top: -0.25em;
+          margin-left: 10px;
+        }
+      
+        .title {
+          display: flex;
+          flex: 1;
+          justify-content: center;
+          font-size: 6.5vh;
+          align-self: center;
         }
 
         input[type=submit] {
-            visibility: collapse;
+          visibility: collapse;
+        }
+
+        reply-form {
+          margin-right: 10px;
+          margin-left: 10px;
         }
     </style>
     <form>
         <div class="flex-container">
-            <h1 class="head">Chat Screen</h1>
+            <span class="head">
+                <img src="https://image.flaticon.com/icons/svg/109/109618.svg" class='back-button'>
+                <span class="title">Chat Screen</span>
+            </span>
             <div class="reply-block">
             </div>
             <form-input name="message-text" placeholder="Введите сообщение"></form-input>
@@ -66,23 +89,41 @@ class MessageForm extends HTMLElement {
     this._shadowRoot.appendChild(template.content.cloneNode(true));
     this.$form = this._shadowRoot.querySelector('form');
     this.$input = this._shadowRoot.querySelector('form-input');
-    this.$reply_block = this._shadowRoot.querySelector('.reply-block');
+    this.$replyBlock = this._shadowRoot.querySelector('.reply-block');
+    this.$backButton = this._shadowRoot.querySelector('.back-button');
+    this.$chatName = this.getAttribute('name') || null;
 
     this.$form.addEventListener('submit', this._onSubmit.bind(this));
     this.$form.addEventListener('keypress', this._onKeyPress.bind(this));
-    this.loadConversation();
+    this.$backButton.addEventListener('click', this._onClickBack.bind(this));
+    this.load();
   }
 
-  loadConversation() {
-    const log = localStorage.getItem('local');
-    if (log) {
-      const conversation = JSON.parse(log);
-      for (reply of conversation) {
-        const replyf = document.createElement('reply-form');
-        replyf.$message.innerText = reply.message;
-        replyf.$name.innerText = reply.name;
-        replyf.$time.innerText = reply.time;
-        this.$reply_block.append(replyf);
+  static get observedAttributes() {
+    return ['name'];
+  }
+
+  // eslint-disable-next-line no-unused-vars
+  attributeChangedCallBack(name, oldValue, newValue) {
+    this.load();
+  }
+
+  load() {
+    const jsonIn = localStorage.getItem('chats');
+    if (jsonIn) {
+      const chats = JSON.parse(jsonIn);
+      chat = chats.find((ch) => ch.name === this.$chatName);
+      if (chat && this.$chatName) {
+        for (reply of chat.conversation) {
+          const replyf = document.createElement('reply-form');
+          replyf.$message.innerText = reply.message;
+          replyf.$name.innerText = reply.name;
+          replyf.$time.innerText = reply.time;
+          if (reply.name === 'You') {
+            replyf.style['align-self'] = 'flex-end';
+          }
+          this.$replyBlock.append(replyf);
+        }
       }
     }
   }
@@ -91,16 +132,20 @@ class MessageForm extends HTMLElement {
     event.preventDefault();
     const reply = document.createElement('reply-form');
     reply.$message.innerText = this.$input.value;
+    const { name, host } = this.$input.name;
     if (reply.$message.innerText) {
-      reply.$name.innerText = 'Name';
+      reply.$name.innerText = name;
       const date = new Date();
       let h = date.getHours();
       h = (h < 10) ? '0' + h : h;
       let m = date.getMinutes();
       m = (m < 10) ? '0' + m : m;
       reply.$time.innerText = h + ':' + m;
-      this.$reply_block.append(reply);
-      this.$reply_block.scrollTop = this.$reply_block.scrollHeight;
+      if (host) {
+        reply.style['align-self'] = 'flex-end';
+      }
+      this.$replyBlock.append(reply);
+      this.$replyBlock.scrollTop = this.$replyBlock.scrollHeight;
       this.save(reply.$name.innerText, reply.$time.innerText, reply.$message.innerText);
     }
     // this.$message.innerText = this.$input.value;
@@ -112,20 +157,32 @@ class MessageForm extends HTMLElement {
       time: time_,
       message: message_,
     };
-    const indata = localStorage.getItem('local');
-    let conversation = [];
-    if (indata) {
-      conversation = JSON.parse(indata);
+    let chat = {
+      name: this.$chatName,
+      conversation: [],
+    };
+    let chats = [chat];
+    const jsonIn = localStorage.getItem('chats');
+    if (jsonIn) {
+      chats = JSON.parse(jsonIn);
+      chat = chats.find((ch) => ch.name === this.$chatName);
     }
-    conversation.push(reply);
-    const outdata = JSON.stringify(conversation);
-    localStorage.setItem('local', outdata);
+    chat.conversation.push(reply);
+    const outdata = JSON.stringify(chats);
+    localStorage.setItem('chats', outdata);
   }
 
   _onKeyPress(event) {
     if (event.keyCode === 13) {
       this.$form.dispatchEvent(new Event('submit'));
     }
+  }
+
+  _onClickBack(event) {
+    event.preventDefault();
+    const chatList = document.createElement('chat-list-form');
+    document.querySelector('message-form').remove();
+    document.querySelector('body').append(chatList);
   }
 }
 
