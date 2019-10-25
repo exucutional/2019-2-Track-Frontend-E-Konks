@@ -23,4 +23,4 @@ deploy:
       - master
       - devel
       # /^hw\d+$/ not working(
-      - hw3
+      - hw4
