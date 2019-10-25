@@ -8,6 +8,9 @@ template.innerHTML = `
             display: flex;
             flex-direction: row;
         }
+        .flex-container-row:hover {
+            background: #e4e5ef; 
+        }
         .flex-container-column {
             display: flex;
             flex-direction: column;
@@ -65,7 +68,7 @@ template.innerHTML = `
     </style>
     <form>
         <div class='flex-container-row margin-top'>
-            <svg width="50px" height="50px" viewBox="0 0 32 32">
+            <svg width="70px" height="70px" viewBox="0 0 32 32">
                 <circle cx="16" cy="16" r="16" fill='rgba(25, 91, 125, 0.69)'/>
             <div class='flex-container-column'>
                 <div class='flex-container-row top'>

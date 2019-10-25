@@ -9,7 +9,7 @@ template.innerHTML = `
         } 
 
         .paperclip {
-            max-width: 3em;
+            max-width: 1em;
             transform: rotate(90deg);
         }
 

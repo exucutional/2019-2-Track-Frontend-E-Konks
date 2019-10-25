@@ -13,12 +13,37 @@ template.innerHTML = `
         bottom: 20px;
     }
 
+    .create-chat-button:hover {
+        cursor: pointer;
+        animation: pulse 2s infinite ease-in-out;
+        background-color: lighten($primary, 25%);
+    }
+
     create-chat-form {
         display: none;
         margin: 1em;
         border: solid;
         width: fit-content;
     }
+
+    @keyframes pulse {
+      0% {
+        transform: scale(1, 1);
+      }
+      25% {
+        transform: scale(1, 1);
+        filter: opacity(1);
+      }
+      50% {
+        transform: scale(1.2, 1.2);
+        filter: opacity(0.5);
+      }
+      100% {
+        transform: scale(1, 1);
+        filter: opacity(1);
+      }
+    }
+
     </style>
     <form>
         <create-chat-form></create-chat-form>

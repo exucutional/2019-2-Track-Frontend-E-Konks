@@ -11,6 +11,9 @@ template.innerHTML = `
             width: 100%;
             align-self: flex-end;
             height: 10vh;
+            background: white;
+            border-top: groove;
+            border-right: none;
         }
 
         .reply {
@@ -33,14 +36,15 @@ template.innerHTML = `
             flex-direction: column;
             height: -webkit-fill-available;
             overflow: hidden;
+            background-color: rgba(0, 0, 0, 0.04);
         }
 
         .head {
             display: flex;
-            background: #C8A2C8;
+            background: #8E24AA;
             font-family: monospace;
             flex-direction: row;
-            height: 6.5vh;
+            height: 8vh;
             margin-bottom: 10px;
         }
 
@@ -48,16 +52,23 @@ template.innerHTML = `
           display: flex;
           height: auto;
           max-width: 3em;
-          margin-top: -0.25em;
           margin-left: 10px;
+          filter: invert(1);
+          animation: none;
         }
-      
+        
+        .back-button:hover {
+          filter: invert(0.5);
+        }
+
         .title {
           display: flex;
           flex: 1;
           justify-content: center;
-          font-size: 6.5vh;
+          font-size: 7vh;
           align-self: center;
+          color: white;
+          margin-right: 2vw;
         }
 
         input[type=submit] {
@@ -67,7 +78,13 @@ template.innerHTML = `
         reply-form {
           margin-right: 10px;
           margin-left: 10px;
+          width: fit-content;
         }
+
+        reply-form:hover {
+          background: #8e24aa17;
+        }
+
     </style>
     <form>
         <div class="flex-container">
@@ -77,7 +94,7 @@ template.innerHTML = `
             </span>
             <div class="reply-block">
             </div>
-            <form-input name="message-text" placeholder="Введите сообщение"></form-input>
+            <form-input name="message-text" placeholder="Сообщение"></form-input>
         </div>
     </form> 
 `;
@@ -89,6 +106,7 @@ class MessageForm extends HTMLElement {
     this._shadowRoot.appendChild(template.content.cloneNode(true));
     this.$form = this._shadowRoot.querySelector('form');
     this.$input = this._shadowRoot.querySelector('form-input');
+    this.$title = this._shadowRoot.querySelector('.title');
     this.$replyBlock = this._shadowRoot.querySelector('.reply-block');
     this.$backButton = this._shadowRoot.querySelector('.back-button');
     this.$chatName = this.getAttribute('name') || null;
@@ -113,6 +131,9 @@ class MessageForm extends HTMLElement {
     if (jsonIn) {
       const chats = JSON.parse(jsonIn);
       chat = chats.find((ch) => ch.name === this.$chatName);
+      if (this.$chatName !== null) {
+        this.$title.innerHTML = this.$chatName;
+      }
       if (chat && this.$chatName) {
         for (reply of chat.conversation) {
           const replyf = document.createElement('reply-form');
