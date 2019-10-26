@@ -49,40 +49,52 @@ template.innerHTML = `
         }
 
         .back-button {
-          display: flex;
-          height: auto;
-          max-width: 3em;
-          margin-left: 10px;
-          filter: invert(1);
-          animation: none;
+            display: flex;
+            height: auto;
+            max-width: 3em;
+            margin-left: 10px;
+            filter: invert(1);
+            animation: none;
         }
         
         .back-button:hover {
-          filter: invert(0.5);
+            filter: invert(0.5);
         }
 
         .title {
-          display: flex;
-          flex: 1;
-          justify-content: center;
-          font-size: 7vh;
-          align-self: center;
-          color: white;
-          margin-right: 2vw;
+            display: flex;
+            flex: 1;
+            justify-content: center;
+            font-size: 7vh;
+            align-self: center;
+            color: white;
+            margin-right: 2vw;
         }
 
         input[type=submit] {
-          visibility: collapse;
+            visibility: collapse;
         }
 
         reply-form {
-          margin-right: 10px;
-          margin-left: 10px;
-          width: fit-content;
+            margin-right: 10px;
+            margin-left: 10px;
+            width: fit-content;
         }
 
         reply-form:hover {
-          background: #8e24aa17;
+            background: #8e24aa17;
+        }
+
+        @keyframes appear {
+          0% {
+            opacity(0);
+            transform: scale(0.1, 0.1);
+          }
+
+          100% {
+            opacity(1);
+            transform: scale(1, 1);
+          }
         }
 
     </style>
@@ -92,8 +104,7 @@ template.innerHTML = `
                 <img src="https://image.flaticon.com/icons/svg/109/109618.svg" class='back-button'>
                 <span class="title">Chat Screen</span>
             </span>
-            <div class="reply-block">
-            </div>
+            <div class="reply-block"></div>
             <form-input name="message-text" placeholder="Сообщение"></form-input>
         </div>
     </form> 
@@ -147,6 +158,7 @@ class MessageForm extends HTMLElement {
         }
       }
     }
+    this.$replyBlock.scrollTop = this.$replyBlock.scrollHeight;
   }
 
   _onSubmit(event) {
@@ -165,6 +177,7 @@ class MessageForm extends HTMLElement {
       if (host) {
         reply.style['align-self'] = 'flex-end';
       }
+      reply.style.animation = 'appear 0.5s';
       this.$replyBlock.append(reply);
       this.$replyBlock.scrollTop = this.$replyBlock.scrollHeight;
       this.save(reply.$name.innerText, reply.$time.innerText, reply.$message.innerText);

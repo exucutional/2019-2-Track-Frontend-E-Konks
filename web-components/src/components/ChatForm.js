@@ -80,7 +80,7 @@ template.innerHTML = `
                     <span class='indicator'></span>
                     <img src='https://image.flaticon.com/icons/svg/446/446191.svg' class='check-mark'>
                 </div>
-                <div class='create-chat-button'>
+                <div class='create-chat-button'></div>
             </div>
         </div>
     </form>

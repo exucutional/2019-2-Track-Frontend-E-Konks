@@ -27,17 +27,17 @@ template.innerHTML = `
         }
 
         input[type='radio'] {
-          width: unset;
-          margin-left: 20px;
+            width: unset;
+            margin-left: 20px;
         }
     </style>
-      <input class='message' type="text">
-      <div class='container'>
-          <span>Message from:</span>
-          <input type='radio' name='name' value='You' checked>You
-          <input type='radio' name='name' value='Companion'>Companion
-      </div>
-      <img src='https://image.flaticon.com/icons/svg/54/54848.svg' class='paperclip'>
+    <input class='message' type="text">
+    <div class='container'>
+        <span>Message from:</span>
+        <input type='radio' name='name' value='You' checked>You
+        <input type='radio' name='name' value='Companion'>Companion
+    </div>
+    <img src='https://image.flaticon.com/icons/svg/54/54848.svg' class='paperclip'>
 `;
 
 class FormInput extends HTMLElement {
