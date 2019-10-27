@@ -14,10 +14,16 @@ template.innerHTML = `
             display: flex;
             flex-direction: column;
             overflow-y: auto;
+            max-height: 90vh;
         }
 
         .flex-container {
             display: flex;
+        }
+
+        form {
+          display: flex;
+          flex-direction: column;
         }
     </style>
     <form>
@@ -81,12 +87,14 @@ class ChatListForm extends HTMLElement {
   _onSubmit(event) {
     event.preventDefault();
     const chatf = document.createElement('chat-form');
+    chatf.animation = 'appear 0.5s infinite';
     const chatName = this.$createChatButton.chatName;
     if (chatName) {
       chatf.name = chatName;
       this.$chatBlock.append(chatf);
       this.save(chatName);
     }
+    this.$chatBlock.scrollTop = this.$chatBlockscrollHeight;
   }
 }
 
