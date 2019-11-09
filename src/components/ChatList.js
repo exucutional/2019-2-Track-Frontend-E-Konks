@@ -55,7 +55,7 @@ function ChatList(props) {
 		let chatsCopy = [];
 		let chatId = 1;
 		if (chats !== null) {
-			chatsCopy=chats.slice();
+			chatsCopy = chats.slice();
 			chatId = chatsCopy.length + 1;
 		}
 		chatsCopy.push({
@@ -67,6 +67,7 @@ function ChatList(props) {
 		save('chats', chatsCopy);
 		setChats(chatsCopy);
 		setInputValue('');
+		setInputMode(false);
 	}
 	const handleChange = (event) => setInputValue(event.target.value);
 	if( chats === null )

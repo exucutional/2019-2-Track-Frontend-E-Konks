@@ -1,10 +1,10 @@
 export function load(key) {
 	const jsonIn = localStorage.getItem(key);
-	if (jsonIn) {
-		const chats = JSON.parse(jsonIn);
-		return chats;
+	if (jsonIn === null) {
+		return null;
 	}
-	return null;
+	const chats = JSON.parse(jsonIn);
+	return chats;
 }
 
 export function save(key, object) {

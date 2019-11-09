@@ -1,5 +1,5 @@
 import ChatList from './ChatList'
-import MessageList from '/.MessageList'
+import MessageList from './MessageList'
 // import MessageList from 'MessageList';
 
 function Body(props) {
@@ -8,8 +8,7 @@ function Body(props) {
 		case 'chats':
 			return ChatList(props);
 		case 'messages':
-			// return MessageList();
-			break;
+			return MessageList(props);
 		default:
 			break;
 	}
