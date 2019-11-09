@@ -2,13 +2,14 @@ import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import store from './store';
-import Routes from './routes';
+// import Routes from './routes';
+import App from './app/App';
 import './styles/globalStyles.css';
 import * as serviceWorker from './utils/serviceWorker';
 
 render(
 	<Provider store={store}>
-		<Routes />
+		<App/>
 	</Provider>,
 	document.getElementById('root'),
 );
