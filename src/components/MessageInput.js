@@ -1,54 +1,79 @@
+/* eslint-disable react/destructuring-assignment */
 import React from 'react';
 import styled from '@emotion/styled';
 import PropType from 'prop-types';
+import ClipButton from './ClipButton';
 
-const InputContainer = styled.div`
+const Form = styled.form`
 	display: flex;
 	flex-direction: row;
-	border: 1px solid rgba(25, 25, 25, 0.32);
+	border-top: 3px solid rgba(25, 25, 25, 0.32);
+	justify-content: space-between;
 	height: 10vh;
 `;
 
 const SourceInput = styled.div`
 	display: flex;
-	font-size: 20px;
-	width: 30em;
+	font-size: 15px;
 	align-items: center;
 	margin-right: 10px;
 `;
 
 const ContentInput = styled.input`
+	font-size: 25px;
 	width: calc(100%);
-	font-size: 30px;
 	border: none;
 `;
 
 const InputRadio = styled.input`
-	width: unset;
-	margin-left: 20px;
+	display: flex;
+	margin-left: 10px;
+`;
+
+const RightSide = styled.span`
+	display: flex;
+	flex-direction: row;
 `;
 
 function Input(props) {
 	return (
-		<InputContainer>
-			<ContentInput 
-				type='text' 
-				onChange={ props.onChange } 
-				onSubmit={ props.onSubmit }
-				value={ props.value }/>
-			<SourceInput>
-				<span>Message from:</span>
-				<InputRadio type='radio' name='name' value='You' checked/>You
-				<InputRadio type='radio' name='name' value='Companion'/>Companion
-			</SourceInput>
-		</InputContainer>
-	)
+		<Form onSubmit={props.onSubmit}>
+			<ContentInput
+				type="text"
+				placeholder="Сообщение"
+				onChange={props.onChange}
+				value={props.value}
+			/>
+			<RightSide>
+				<SourceInput>
+					<InputRadio
+						type="radio"
+						name="name"
+						value="You"
+						defaultChecked
+						onChange={props.youOnTyping}
+					/>
+					You
+					<InputRadio
+						type="radio"
+						name="name"
+						value="Companion"
+						onChange={props.compOnTyping}
+					/>
+					Companion
+				</SourceInput>
+				<ClipButton />
+			</RightSide>
+		</Form>
+	);
 }
 
 Input.propTypes = {
 	onChange: PropType.func.isRequired,
 	onSubmit: PropType.func.isRequired,
 	value: PropType.string.isRequired,
+	youOnTyping: PropType.func.isRequired,
+	compOnTyping: PropType.func.isRequired,
 };
 
 export default Input;

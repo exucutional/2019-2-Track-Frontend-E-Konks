@@ -1,11 +1,39 @@
+/* eslint-disable react/destructuring-assignment */
 import React from 'react';
 import styled from '@emotion/styled';
+import { keyframes } from '@emotion/core';
 import PropTypes from 'prop-types';
+
+const Appear = keyframes`
+	0% {
+		opacity(0);
+		transform: scale(0.1, 0.1);
+	}
+	100% {
+		opacity(1);
+		transform: scale(1, 1);
+	}
+`;
+
+const Avatar = styled.svg`
+	animation: ${Appear} 0.5s;
+`;
+
+const Container = styled.div`
+	display: flex;
+	flex-direction: row;
+	margin-top: 10px;
+	margin-left: 10px;
+`;
 
 const ColumnContainer = styled.div`
 	display: flex;
 	flex-direction: column;
 	margin-bottom: 10px;
+	&:hover {
+		background: #e4e5ef;
+	}
+	animation: ${Appear} 0.5s;
 `;
 
 const RowContainer = styled.div`
@@ -36,7 +64,7 @@ const Content = styled.div`
 	white-space: pre-wrap;
 	background: white;
 	border: 0.5rem solid;
-	border-radius: .4em;
+	border-radius: 0.4em;
 	border-color: rgba(0, 0, 0, 0);
 	width: fit-content;
 	max-width: 45vw;
@@ -60,21 +88,30 @@ const Content = styled.div`
 `;
 
 function Message(props) {
+	let varstyle = {};
+	if (props.name === 'You') {
+		varstyle = { alignSelf: 'flex-end' };
+	}
 	return (
-		<ColumnContainer>
-			<RowContainer>
-				<Name value={ props.name }/>
-				<Time value={ props.time }/>
-			</RowContainer>
-			<Content value={ props.content }/>
-		</ColumnContainer>
+		<Container style={varstyle}>
+			<Avatar width="25px" height="25px" viewBox="0 0 32 32">
+				<circle cx="16" cy="16" r="16" fill="rgba(142, 36, 170, 0.71)" />
+			</Avatar>
+			<ColumnContainer>
+				<RowContainer>
+					<Name>{props.name}</Name>
+					<Time>{props.time}</Time>
+				</RowContainer>
+				<Content>{props.value}</Content>
+			</ColumnContainer>
+		</Container>
 	);
 }
 
 Message.propTypes = {
 	name: PropTypes.string.isRequired,
 	time: PropTypes.string.isRequired,
-	content: PropTypes.string.isRequired,
+	value: PropTypes.string.isRequired,
 };
 
 export default Message;

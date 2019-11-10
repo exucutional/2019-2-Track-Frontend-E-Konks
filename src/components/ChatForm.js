@@ -1,3 +1,4 @@
+/* eslint-disable react/destructuring-assignment */
 import React from 'react';
 import styled from '@emotion/styled';
 import PropTypes from 'prop-types';
@@ -7,6 +8,7 @@ const RowContainer = styled.div`
 	flex-direction: row;
 	margin-top: 10px;
 	margin-left: 5px;
+	margin-right: 5px;
 `;
 
 const ColumnContainer = styled.div`
@@ -19,7 +21,9 @@ const ColumnContainer = styled.div`
 
 const TopPart = styled.div`
 	display: flex;
-	flex-direction: column;
+	flex-direction: raw;
+	align-items: baseline;
+	justify-content: space-between;
 `;
 
 const BottomPart = styled.div`
@@ -40,7 +44,7 @@ const Name = styled.span`
 const Time = styled.span`
 	font-size: 18px;
 	color: darkgrey;
-	margin-left: 25px
+	margin-left: 25px;
 `;
 
 const LastMessage = styled.span`
@@ -52,16 +56,36 @@ const LastMessage = styled.span`
 	margin-left: 20px;
 `;
 
+const Indicator = styled.img`
+	width: 1.5em;
+`;
+
+function MessageIndicator(props) {
+	if (props.last_message !== '') {
+		return (
+			<Indicator src="https://image.flaticon.com/icons/svg/446/446191.svg" />
+		);
+	}
+	return <span />;
+}
+
 function Chat(props) {
+	const onClick = () => {
+		props.onClick(props.id, props.name);
+	};
 	return (
-		<RowContainer onClick={ props.onClick }>
+		<RowContainer onClick={onClick}>
+			<svg width="70px" height="70px" viewBox="0 0 32 32">
+				<circle cx="16" cy="16" r="16" fill="rgba(25, 91, 125, 0.69)" />
+			</svg>
 			<ColumnContainer>
 				<TopPart>
-					<Name>{ props.name }</Name>
-					<Time>{ props.time }</Time>
+					<Name>{props.name}</Name>
+					<Time>{props.time}</Time>
 				</TopPart>
 				<BottomPart>
-					<LastMessage>{ props.last_message }</LastMessage>
+					<LastMessage>{props.last_message}</LastMessage>
+					<MessageIndicator last_message={props.last_message} />
 				</BottomPart>
 			</ColumnContainer>
 		</RowContainer>
@@ -69,10 +93,15 @@ function Chat(props) {
 }
 
 Chat.propTypes = {
+	id: PropTypes.number.isRequired,
 	name: PropTypes.string.isRequired,
 	time: PropTypes.string.isRequired,
 	last_message: PropTypes.string.isRequired,
 	onClick: PropTypes.func.isRequired,
+};
+
+MessageIndicator.propTypes = {
+	last_message: PropTypes.string.isRequired,
 };
 
 export default Chat;

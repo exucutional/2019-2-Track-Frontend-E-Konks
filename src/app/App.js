@@ -10,20 +10,30 @@ const Container = styled.div`
 class App extends Component {
 	constructor(props) {
 		super(props);
-		this.state = { mode: 'chats' };
+		this.state = { mode: 'chats', chatId: 0, title: 'Messenger'};
 		this.setMessagesMode = this.setMessagesMode.bind(this);
+		this.setChatsMode = this.setChatsMode.bind(this);
 	}
 
-	setMessagesMode() {
+	setMessagesMode(id, t) {
 		this.setState(() => ({
 			mode: 'messages',
+			chatId: id,
+			title: t,
+		}));
+	}
+
+	setChatsMode() {
+		this.setState(() => ({
+			mode: 'chats',
+			title: 'Messenger',
 		}));
 	}
 
 	render() {
 		return (
 			<Container>
-				<Header/>
+				<Header state={ this.state } setChatsMode={ this.setChatsMode }/>
 				<Body 
 					state={ this.state }
 					setMessagesMode={ this.setMessagesMode }/>
