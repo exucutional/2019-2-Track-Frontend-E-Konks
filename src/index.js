@@ -9,7 +9,7 @@ import * as serviceWorker from './utils/serviceWorker';
 
 render(
 	<Provider store={store}>
-		<App/>
+		<App />
 	</Provider>,
 	document.getElementById('root'),
 );
