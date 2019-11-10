@@ -1,3 +1,4 @@
+/* eslint-disable object-shorthand */
 import { useState } from 'react';
 import ChatList from './ChatList';
 import MessageList from './MessageList';
