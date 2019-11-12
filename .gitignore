@@ -146,6 +146,8 @@ docs/_book/
 jest_*/
 .jscpd/
 
-#### vscode ####
+### VScode ###
 *.code-workspace
-*.vscode
+
+build/
+
