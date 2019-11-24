@@ -15,10 +15,11 @@ function Body(props) {
 	let profile = load('profile');
 	if (profile === null) {
 		profile = {
-			fullName: 'admin',
+			fullName: '',
 			userName: 'admin',
-			bio: '',
+			bio: 'nothing',
 		}
+		props.setUserName('admin');
 	}
 	const [chats, setChats] = useState(load('chats'));
 	const [messages, setMessages] = useState(load('messages'));
