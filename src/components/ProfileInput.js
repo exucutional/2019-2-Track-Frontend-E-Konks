@@ -122,17 +122,20 @@ function ProfileInput(props) {
 }
 
 ProfileInput.defaultProps = {
-	minLength: 0,
+	minLength: '0',
+	textarea: '',
+	required: '',
+	info: '',
 }
 
 ProfileInput.propTypes = {
-	textarea: PropType.string.isRequired,
-	minLength: PropType.number,
-	required: PropType.string.isRequired,
+	textarea: PropType.string,
+	minLength: PropType.string,
+	required: PropType.string,
 	onChange: PropType.func.isRequired,
 	value: PropType.string.isRequired,
 	label: PropType.string.isRequired,
-	info: PropType.string.isRequired,
+	info: PropType.string,
 }
 
 export default ProfileInput;

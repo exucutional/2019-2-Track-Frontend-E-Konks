@@ -9,7 +9,7 @@ import PropTypes from 'prop-types'
 import ChatList from './ChatList';
 import MessageList from './MessageList';
 import ProfileForm from './ProfileForm';
-import { load } from '../actions/localDb';
+import { save, load } from '../actions/localDb';
 
 function Body(props) {
 	let profile = load('profile');
@@ -17,9 +17,9 @@ function Body(props) {
 		profile = {
 			fullName: '',
 			userName: 'admin',
-			bio: 'nothing',
+			bio: '',
 		}
-		props.setUserName('admin');
+		save('profile', profile);
 	}
 	const [chats, setChats] = useState(load('chats'));
 	const [messages, setMessages] = useState(load('messages'));

@@ -61,7 +61,7 @@ const Menu = styled.ul`
 	-webkit-font-smoothing: antialiased;
 
 	transform-origin: 0% 0%;
-	transform: translate(-100%, 0);
+	transform: translate(-110%, 0);
 
 	transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0);
 	border-radius: 0.5em;
