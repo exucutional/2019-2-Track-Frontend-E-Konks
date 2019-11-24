@@ -16,7 +16,7 @@ class App extends Component {
 			chatId: 0, 
 			title: 'Messenger',
 			fullName: '',
-			userName: '',
+			userName: 'admin',
 			bio: '',
 		};
 		this.setMessagesMode = this.setMessagesMode.bind(this);
