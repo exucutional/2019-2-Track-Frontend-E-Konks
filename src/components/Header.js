@@ -5,13 +5,14 @@ import {
 	Switch,
 	Route,
 	Link,
+	useParams,
 } from "react-router-dom";
 import styled from '@emotion/styled';
 import BackButton from './BackButton';
 import SearchButton from './SearchButton';
 import CheckButton from './CheckButton';
 import MenuBar from './MenuBar';
-import { save } from '../actions/localDb';
+import { save, load } from '../actions/localDb';
 
 const TopBar = styled.div`
 	display: flex;
@@ -29,11 +30,15 @@ const Title = styled.span`
 	align-items: center;
 `;
 
+function ChatTitle() {
+	const { chatId } = useParams();
+	const chatName = load('chats').filter((chat) => chat.id === Number(chatId))[0].name;
+	return (
+		<Title>{ chatName }</Title>
+	);
+}
 
 function Header(props) {
-	const { 
-		title
-	 } = props.state;
 	const profileOnClickSave = () => {
 		const profile = {
 			fullName: props.state.fullName,
@@ -50,7 +55,7 @@ function Header(props) {
 					<Link to='/'>
 						<BackButton/>
 					</Link>
-					<Title>{title}</Title>
+					<ChatTitle/>
 					<span/>
 				</TopBar>
 			</Route>
