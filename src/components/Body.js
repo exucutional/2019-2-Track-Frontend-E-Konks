@@ -12,7 +12,14 @@ import ProfileForm from './ProfileForm';
 import { load } from '../actions/localDb';
 
 function Body(props) {
-	const profile = load('profile');
+	let profile = load('profile');
+	if (profile === null) {
+		profile = {
+			fullName: 'admin',
+			userName: 'admin',
+			bio: '',
+		}
+	}
 	const [chats, setChats] = useState(load('chats'));
 	const [messages, setMessages] = useState(load('messages'));
 	const [inputValue, setInputValue] = useState('');
