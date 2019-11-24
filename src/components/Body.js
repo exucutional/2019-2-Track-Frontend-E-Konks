@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable react/destructuring-assignment */
 /* eslint-disable object-shorthand */
 import React, { useState } from 'react'
@@ -43,9 +44,9 @@ function Body(props) {
 		setFullName: props.setFullName,
 		setUserName: props.setUserName,
 		setBio: props.setBio,
-		fullName: profile.fullName,
-		userName: profile.userName,
-		bio: profile.bio,
+		fullName: props.state.fullName,
+		userName: props.state.userName,
+		bio: props.state.bio,
 	};
 	if (messagesEnd) {
 		messagesEnd.scrollIntoView();
