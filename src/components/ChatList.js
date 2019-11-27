@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable react/destructuring-assignment */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React from 'react';
@@ -55,7 +56,7 @@ function NameInput(props) {
 	return <span />;
 }
 
-function ChatList(state, props) {
+function ChatList(props) {
 	const {
 		chats,
 		setChats,
@@ -63,7 +64,7 @@ function ChatList(state, props) {
 		setInputMode,
 		inputValue,
 		setInputValue,
-	} = state;
+	} = props.state;
 	const InputOnClick = () => setInputMode(!inputMode);
 	const handleSumbit = (event) => {
 		event.preventDefault();
@@ -110,7 +111,6 @@ function ChatList(state, props) {
 						name={chat.name}
 						time={chat.time}
 						last_message={chat.last_message}
-						onClick={props.setMessagesMode}
 					/>
 				))}
 			</ChatContainer>
@@ -124,10 +124,6 @@ function ChatList(state, props) {
 		</Container>
 	);
 }
-
-ChatList.propTypes = {
-	setMessagesMode: PropTypes.func.isRequired,
-};
 
 NameInput.propTypes = {
 	mode: PropTypes.bool.isRequired,

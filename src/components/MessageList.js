@@ -1,7 +1,10 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable react/destructuring-assignment */
 import React from 'react';
+import {
+	useParams
+} from "react-router-dom";
 import styled from '@emotion/styled';
-import PropTypes from 'prop-types';
 import { save } from '../actions/localDb';
 import Message from './MessageForm';
 import Input from './MessageInput';
@@ -32,7 +35,7 @@ function getTime() {
 	return `${strh}:${strm}`;
 }
 
-function MessageList(state, props) {
+function MessageList(props) {
 	const {
 		inputValue,
 		setInputValue,
@@ -42,9 +45,10 @@ function MessageList(state, props) {
 		setYourName,
 		chats,
 		setMessagesEnd,
-	} = state;
+		userName
+	} = props.state;
 	// eslint-disable-next-line react/prop-types
-	const { chatId } = props.state;
+	const { chatId } = useParams();
 	const handleSubmit = (event) => {
 		event.preventDefault();
 		if (inputValue !== '') {
@@ -58,11 +62,11 @@ function MessageList(state, props) {
 			messagesCopy.push({
 				id: messageId,
 				name: yourName,
-				chat_id: chatId,
+				chat_id: Number(chatId),
 				added_at: curTime,
 				content: inputValue,
 			});
-			const chat = chats.find((elem) => elem.id === chatId);
+			const chat = chats.find((elem) => elem.id === Number(chatId));
 			chat.last_message = inputValue;
 			chat.time = curTime;
 			save('chats', chats);
@@ -71,7 +75,7 @@ function MessageList(state, props) {
 			setInputValue('');
 		}
 	};
-	const handleYourMessage = () => setYourName('You');
+	const handleYourMessage = () => setYourName(userName);
 	const handleCompanionMessage = () => setYourName('Companion');
 	const handleChange = (event) => setInputValue(event.target.value);
 	if (messages === null) {
@@ -90,11 +94,12 @@ function MessageList(state, props) {
 		<Container>
 			<MessageContainer>
 				{messages
-					.filter((message) => message.chat_id === chatId)
+					.filter((message) => message.chat_id === Number(chatId))
 					.map((message) => (
 						<Message
 							key={message.id}
 							name={message.name}
+							host={userName}
 							time={message.added_at}
 							value={message.content}
 						/>
@@ -115,9 +120,5 @@ function MessageList(state, props) {
 		</Container>
 	);
 }
-
-MessageList.propTypes = {
-	chatId: PropTypes.number.isRequired,
-};
 
 export default MessageList;

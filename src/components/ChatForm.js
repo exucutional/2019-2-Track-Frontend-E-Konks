@@ -1,5 +1,6 @@
 /* eslint-disable react/destructuring-assignment */
 import React from 'react';
+import { Link } from "react-router-dom";
 import styled from '@emotion/styled';
 import PropTypes from 'prop-types';
 
@@ -70,25 +71,32 @@ function MessageIndicator(props) {
 }
 
 function Chat(props) {
+	/*
 	const onClick = () => {
 		props.onClick(props.id, props.name);
 	};
+	*/
 	return (
-		<RowContainer onClick={onClick}>
-			<svg width="70px" height="70px" viewBox="0 0 32 32">
-				<circle cx="16" cy="16" r="16" fill="rgba(25, 91, 125, 0.69)" />
-			</svg>
-			<ColumnContainer>
-				<TopPart>
-					<Name>{props.name}</Name>
-					<Time>{props.time}</Time>
-				</TopPart>
-				<BottomPart>
-					<LastMessage>{props.last_message}</LastMessage>
-					<MessageIndicator last_message={props.last_message} />
-				</BottomPart>
-			</ColumnContainer>
-		</RowContainer>
+		<Link to={`/chats/${props.id}`} style={ { 
+			textDecoration: 'none',
+			color: 'unset',
+		} }>
+			<RowContainer>
+				<svg width="70px" height="70px" viewBox="0 0 32 32">
+					<circle cx="16" cy="16" r="16" fill="rgba(25, 91, 125, 0.69)" />
+				</svg>
+				<ColumnContainer>
+					<TopPart>
+						<Name>{props.name}</Name>
+						<Time>{props.time}</Time>
+					</TopPart>
+					<BottomPart>
+						<LastMessage>{props.last_message}</LastMessage>
+						<MessageIndicator last_message={props.last_message} />
+					</BottomPart>
+				</ColumnContainer>
+			</RowContainer>
+		</Link>
 	);
 }
 
@@ -97,7 +105,6 @@ Chat.propTypes = {
 	name: PropTypes.string.isRequired,
 	time: PropTypes.string.isRequired,
 	last_message: PropTypes.string.isRequired,
-	onClick: PropTypes.func.isRequired,
 };
 
 MessageIndicator.propTypes = {

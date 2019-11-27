@@ -1,42 +1,75 @@
+/* eslint-disable react/prop-types */
+/* eslint-disable react/destructuring-assignment */
 /* eslint-disable object-shorthand */
-import { useState } from 'react';
+import React, { useState } from 'react'
+import {
+	Switch,
+	Route
+} from "react-router-dom";
+import PropTypes from 'prop-types'
 import ChatList from './ChatList';
 import MessageList from './MessageList';
-import { load } from '../actions/localDb';
+import ProfileForm from './ProfileForm';
+import { save, load } from '../actions/localDb';
 
 function Body(props) {
-	const { mode } = props.state;
+	let profile = load('profile');
+	if (profile === null) {
+		profile = {
+			fullName: '',
+			userName: 'admin',
+			bio: '',
+		}
+		save('profile', profile);
+	}
 	const [chats, setChats] = useState(load('chats'));
 	const [messages, setMessages] = useState(load('messages'));
 	const [inputValue, setInputValue] = useState('');
 	const [inputMode, setInputMode] = useState(false);
-	const [yourName, setYourName] = useState('You');
+	const [yourName, setYourName] = useState(profile.userName);
 	const [messagesEnd, setMessagesEnd] = useState(false);
 	const state = {
 		chats: chats,
 		setChats: setChats,
 		messages: messages,
-		setMessages: setMessages,
 		inputValue: inputValue,
-		setInputValue: setInputValue,
 		inputMode: inputMode,
+		setInputValue: setInputValue,
 		setInputMode: setInputMode,
-		yourName: yourName,
 		setYourName: setYourName,
-		messagesEnd: messagesEnd,
 		setMessagesEnd: setMessagesEnd,
+		setMessages: setMessages,
+		yourName: yourName,
+		messagesEnd: messagesEnd,
+		setFullName: props.setFullName,
+		setUserName: props.setUserName,
+		setBio: props.setBio,
+		fullName: props.state.fullName,
+		userName: props.state.userName,
+		bio: props.state.bio,
 	};
 	if (messagesEnd) {
 		messagesEnd.scrollIntoView();
 	}
-	switch (mode) {
-		case 'chats':
-			return ChatList(state, props);
-		case 'messages':
-			return MessageList(state, props);
-		default:
-			break;
-	}
+	return (
+		<Switch>
+			<Route path='/chats/:chatId'>
+				<MessageList state={ state }/>
+			</Route>
+			<Route path='/profile'>
+				<ProfileForm state={ state }/>
+			</Route>
+			<Route path='/'>
+				<ChatList state={ state }/>
+			</Route>
+		</Switch>
+	);
+}
+
+Body.propTypes = {
+	setFullName: PropTypes.func.isRequired,
+	setUserName: PropTypes.func.isRequired,
+	setBio: PropTypes.func.isRequired,
 }
 
 export default Body;

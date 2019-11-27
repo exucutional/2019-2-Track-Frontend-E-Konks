@@ -89,7 +89,7 @@ const Content = styled.div`
 
 function Message(props) {
 	let varstyle = {};
-	if (props.name === 'You') {
+	if (props.name === props.host) {
 		varstyle = { alignSelf: 'flex-end' };
 	}
 	return (
@@ -110,6 +110,7 @@ function Message(props) {
 
 Message.propTypes = {
 	name: PropTypes.string.isRequired,
+	host: PropTypes.string.isRequired,
 	time: PropTypes.string.isRequired,
 	value: PropTypes.string.isRequired,
 };
