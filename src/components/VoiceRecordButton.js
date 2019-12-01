@@ -75,6 +75,12 @@ function VoiceRecordButton(props) {
 					type: 'audio'
 				};
 				saveMessage(message, false, setMessages, setChats, messages);
+				const data = new FormData();
+				data.append('audio', audioURL);
+				fetch('https://tt-front.now.sh/upload/', {
+					method: 'POST',
+					body: data,
+				}).then(response => console.log(response));
 			});
 			mediaRecorder.addEventListener('dataavailable', (event) => {
 				chunks.push(event.data);

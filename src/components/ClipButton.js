@@ -52,6 +52,12 @@ function ClipButton(props) {
 				dropbox.removeEventListener('dragover', preventAndStop, false);
 				dropbox.removeEventListener('drop', drop, false);
 				saveMessage(message, false, setMessages, setChats, messages);
+				const data = new FormData();
+				data.append('image', files[i]);
+				fetch('https://tt-front.now.sh/upload/', {
+					method: 'POST',
+					body: data,
+				}).then(response => console.log(response));
 			}
 		}
 	}
