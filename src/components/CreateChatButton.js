@@ -26,7 +26,8 @@ const Button = styled.img`
 	&:hover {
 		cursor: pointer;
 		animation: ${Pulse} 2s infinite ease-in-out;
-	}
+	};
+	cursor: pointer;
 `;
 
 function CreateChatButton(props) {

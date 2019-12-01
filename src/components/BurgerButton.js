@@ -6,7 +6,8 @@ const Button = styled.img`
 	margin-left: 10px;
 	&:hover {
 		filter: invert(0.5);
-	}
+	};
+	cursor: pointer;
 `;
 
 function BurgerButton() {

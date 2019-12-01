@@ -3,6 +3,8 @@ import React from 'react';
 import styled from '@emotion/styled';
 import PropType from 'prop-types';
 import ClipButton from './ClipButton';
+import LocationButton from './LocationButton';
+import VoiceRecordButton from './VoiceRecordButton';
 
 const Form = styled.form`
 	display: flex;
@@ -62,7 +64,25 @@ function Input(props) {
 					/>
 					Companion
 				</SourceInput>
-				<ClipButton />
+				<ClipButton
+					yourName={props.yourName}
+					chatId={props.chatId}
+					setMessages={props.setMessages}
+					setChats={props.setChats}
+					// eslint-disable-next-line react/prop-types
+					messages={props.messages}
+				/>
+				<LocationButton setInputValue={props.setInputValue}/>
+				<VoiceRecordButton
+					yourName={props.yourName}
+					chatId={props.chatId}
+					setMessages={props.setMessages}
+					setChats={props.setChats}
+					// eslint-disable-next-line react/prop-types
+					messages={props.messages}
+					isRecording={props.isRecording}
+					setIsRecording={props.setIsRecording}
+				/>
 			</RightSide>
 		</Form>
 	);
@@ -71,9 +91,16 @@ function Input(props) {
 Input.propTypes = {
 	onChange: PropType.func.isRequired,
 	onSubmit: PropType.func.isRequired,
+	setInputValue: PropType.func.isRequired,
 	value: PropType.string.isRequired,
 	youOnTyping: PropType.func.isRequired,
 	compOnTyping: PropType.func.isRequired,
+	yourName: PropType.string.isRequired,
+	chatId: PropType.string.isRequired,
+	setMessages: PropType.func.isRequired,
+	setChats: PropType.func.isRequired,
+	isRecording: PropType.bool.isRequired,
+	setIsRecording: PropType.func.isRequired,
 };
 
 export default Input;

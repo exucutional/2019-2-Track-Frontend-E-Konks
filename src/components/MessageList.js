@@ -5,9 +5,10 @@ import {
 	useParams
 } from "react-router-dom";
 import styled from '@emotion/styled';
-import { save } from '../actions/localDb';
+import { saveMessage } from '../actions/localDb';
 import Message from './MessageForm';
 import Input from './MessageInput';
+import { getTime } from '../actions/time';
 
 const Container = styled.div`
 	display: flex;
@@ -26,15 +27,6 @@ const MessageContainer = styled.div`
 	background-color: rgba(0, 0, 0, 0.04);
 `;
 
-function getTime() {
-	const now = new Date();
-	const h = now.getHours();
-	const m = now.getMinutes();
-	const strh = h < 10 ? `0${h}` : h;
-	const strm = m < 10 ? `0${m}` : m;
-	return `${strh}:${strm}`;
-}
-
 function MessageList(props) {
 	const {
 		inputValue,
@@ -43,35 +35,25 @@ function MessageList(props) {
 		setMessages,
 		yourName,
 		setYourName,
-		chats,
+		setChats,
 		setMessagesEnd,
-		userName
+		userName,
+		isRecording,
+		setIsRecording,
 	} = props.state;
 	// eslint-disable-next-line react/prop-types
 	const { chatId } = useParams();
 	const handleSubmit = (event) => {
 		event.preventDefault();
 		if (inputValue !== '') {
-			let messagesCopy = [];
-			let messageId = 1;
-			if (messages !== null) {
-				messagesCopy = messages;
-				messageId = messagesCopy.length + 1;
-			}
 			const curTime = getTime();
-			messagesCopy.push({
-				id: messageId,
+			const message = {
 				name: yourName,
 				chat_id: Number(chatId),
 				added_at: curTime,
 				content: inputValue,
-			});
-			const chat = chats.find((elem) => elem.id === Number(chatId));
-			chat.last_message = inputValue;
-			chat.time = curTime;
-			save('chats', chats);
-			save('messages', messagesCopy);
-			setMessages(messagesCopy);
+			}
+			saveMessage(message, true, setMessages, setChats, messages)
 			setInputValue('');
 		}
 	};
@@ -81,18 +63,28 @@ function MessageList(props) {
 	if (messages === null) {
 		return (
 			<Container>
-				<MessageContainer />
+				<MessageContainer id='messageContainer'/>
 				<Input
 					onSubmit={handleSubmit}
 					onChange={handleChange}
+					setInputValue={setInputValue}
 					value={inputValue}
+					youOnTyping={handleYourMessage}
+					compOnTyping={handleCompanionMessage}
+					setMessages={setMessages}
+					yourName={yourName}
+					setChats={setChats}
+					chatId={chatId}
+					messages={messages}
+					setIsRecording={setIsRecording}
+					isRecording={isRecording}
 				/>
 			</Container>
 		);
 	}
 	return (
 		<Container>
-			<MessageContainer>
+			<MessageContainer id='messageContainer'>
 				{messages
 					.filter((message) => message.chat_id === Number(chatId))
 					.map((message) => (
@@ -102,6 +94,7 @@ function MessageList(props) {
 							host={userName}
 							time={message.added_at}
 							value={message.content}
+							type={message.type || 'text'}
 						/>
 					))}
 				<div
@@ -113,9 +106,17 @@ function MessageList(props) {
 			<Input
 				onSubmit={handleSubmit}
 				onChange={handleChange}
+				setInputValue={setInputValue}
 				value={inputValue}
 				youOnTyping={handleYourMessage}
 				compOnTyping={handleCompanionMessage}
+				setMessages={setMessages}
+				yourName={yourName}
+				setChats={setChats}
+				chatId={chatId}
+				messages={messages}
+				setIsRecording={setIsRecording}
+				isRecording={isRecording}
 			/>
 		</Container>
 	);

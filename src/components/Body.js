@@ -28,6 +28,7 @@ function Body(props) {
 	const [inputMode, setInputMode] = useState(false);
 	const [yourName, setYourName] = useState(profile.userName);
 	const [messagesEnd, setMessagesEnd] = useState(false);
+	const [isRecording, setIsRecording] = useState(false);
 	const state = {
 		chats: chats,
 		setChats: setChats,
@@ -47,6 +48,8 @@ function Body(props) {
 		fullName: props.state.fullName,
 		userName: props.state.userName,
 		bio: props.state.bio,
+		isRecording: isRecording,
+		setIsRecording: setIsRecording,
 	};
 	if (messagesEnd) {
 		messagesEnd.scrollIntoView();

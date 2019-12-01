@@ -7,7 +7,8 @@ const Button = styled.img`
 	filter: invert(1);
 	&:hover {
 		filter: invert(0.5);
-	}
+	};
+	cursor: pointer;
 `;
 
 function SearchButton() {
