@@ -48,7 +48,7 @@ function NameInput(props) {
 				<input
 					type="submit"
 					value="Создать"
-					style={{ position: 'relative', fontSize: 'inherit' }}
+					style={{ position: 'relative', fontSize: 'inherit', cursor: 'pointer' }}
 				/>
 			</Form>
 		);

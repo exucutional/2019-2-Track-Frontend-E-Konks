@@ -33,6 +33,7 @@ const ColumnContainer = styled.div`
 	&:hover {
 		background: #e4e5ef;
 	}
+	cursor: pointer;
 	animation: ${Appear} 0.5s;
 `;
 
@@ -87,6 +88,32 @@ const Content = styled.div`
 	}
 `;
 
+const Audio = styled.audio``;
+
+function ContentAnalyzer(props) {
+	switch (props.type) {
+		case 'img': {
+			return ( <img src={props.value} style={ {maxWidth: '45vw'} } alt=''/> );
+		}
+		case 'audio': {
+			return ( <Audio src={props.value} controls/>);
+		}
+		default: {
+			break;
+		}
+	}
+	if (props.value.startsWith('http://') || props.value.startsWith('https://')) {
+		return (
+			<Content>
+				<a href={props.value}>Location</a>
+			</Content>
+		);
+	}
+	return (
+		<Content>{props.value}</Content>
+	);
+}
+
 function Message(props) {
 	let varstyle = {};
 	if (props.name === props.host) {
@@ -102,7 +129,7 @@ function Message(props) {
 					<Name>{props.name}</Name>
 					<Time>{props.time}</Time>
 				</RowContainer>
-				<Content>{props.value}</Content>
+				<ContentAnalyzer value={props.value} type={props.type}/>
 			</ColumnContainer>
 		</Container>
 	);
@@ -113,6 +140,12 @@ Message.propTypes = {
 	host: PropTypes.string.isRequired,
 	time: PropTypes.string.isRequired,
 	value: PropTypes.string.isRequired,
+	type: PropTypes.string.isRequired,
+};
+
+ContentAnalyzer.propTypes = {
+	value: PropTypes.string.isRequired,
+	type: PropTypes.string.isRequired,
 };
 
 export default Message;
