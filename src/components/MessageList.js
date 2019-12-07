@@ -27,6 +27,18 @@ const MessageContainer = styled.div`
 	background-color: rgba(0, 0, 0, 0.04);
 `;
 
+const MESSAGE_CREATE_URL = 'http://localhost:8000/messages/create/'
+
+const MessageCreate = (message) => {
+	fetch(MESSAGE_CREATE_URL, {
+		method: 'POST',
+		chat: message.chatId,
+		user: 5,
+		content: message.content,
+	}).then(resp => resp.json())
+		.then(response => console.log(response));
+}
+
 function MessageList(props) {
 	const {
 		inputValue,
@@ -53,7 +65,8 @@ function MessageList(props) {
 				added_at: curTime,
 				content: inputValue,
 			}
-			saveMessage(message, true, setMessages, setChats, messages)
+			MessageCreate(message);
+			// saveMessage(message, true, setMessages, setChats, messages)
 			setInputValue('');
 		}
 	};
@@ -90,7 +103,7 @@ function MessageList(props) {
 					.map((message) => (
 						<Message
 							key={message.id}
-							name={message.name}
+							name={message.name || message.username}
 							host={userName}
 							time={message.added_at}
 							value={message.content}
