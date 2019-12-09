@@ -96,7 +96,7 @@ function MessageListCommon(props) {
 			pollMessages();
 		}
 		pollMessages();
-	}, []);
+	}, [newMessageEvent, setMessages]);
 	if (messages === null) {
 		return (
 			<Container>
