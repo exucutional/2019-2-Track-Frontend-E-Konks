@@ -37,33 +37,64 @@ const RightSide = styled.span`
 	flex-direction: row;
 `;
 
+const SourceNameInput = styled.input`
+	display: flex;
+	border: none;
+
+`;
+
+function Source(props) {
+	if (props.variableName) {
+		return (
+			<SourceInput>
+				<Form style={ {display: 'flex', border: 'none'} }>
+					<SourceNameInput
+						type='text'
+						onChange={props.changeYourName}
+						placeholder='Ваше имя'
+					/>
+				</Form>
+			</SourceInput>
+		);
+	}
+	return (
+		<SourceInput>
+			<InputRadio
+				type="radio"
+				name="name"
+				value="You"
+				defaultChecked
+				onChange={props.youOnTyping}
+			/>
+			You
+			<InputRadio
+				type="radio"
+				name="name"
+				value="Companion"
+				onChange={props.compOnTyping}
+			/>
+			Companion
+		</SourceInput>
+	);
+}
+
 function Input(props) {
 	return (
 		<Form onSubmit={props.onSubmit}>
 			<ContentInput
 				type="text"
 				placeholder="Сообщение"
+				name='content'
 				onChange={props.onChange}
 				value={props.value}
 			/>
 			<RightSide>
-				<SourceInput>
-					<InputRadio
-						type="radio"
-						name="name"
-						value="You"
-						defaultChecked
-						onChange={props.youOnTyping}
-					/>
-					You
-					<InputRadio
-						type="radio"
-						name="name"
-						value="Companion"
-						onChange={props.compOnTyping}
-					/>
-					Companion
-				</SourceInput>
+				<Source 
+					youOnTyping={props.youOnTyping}
+					compOnTyping={props.compOnTyping}
+					variableName={props.variableName}
+					changeYourName={props.changeYourName}
+				/>
 				<ClipButton
 					yourName={props.yourName}
 					chatId={props.chatId}
@@ -88,9 +119,23 @@ function Input(props) {
 	);
 }
 
+Source.propTypes = {
+	variableName: PropType.bool.isRequired,
+	changeYourName: PropType.func.isRequired,
+	youOnTyping: PropType.func.isRequired,
+	compOnTyping: PropType.func.isRequired,
+}
+
+Input.defaultProps = {
+	variableName: false,
+	changeYourName: () => {},
+};
+
 Input.propTypes = {
 	onChange: PropType.func.isRequired,
 	onSubmit: PropType.func.isRequired,
+	changeYourName: PropType.func,
+	variableName: PropType.bool,
 	setInputValue: PropType.func.isRequired,
 	value: PropType.string.isRequired,
 	youOnTyping: PropType.func.isRequired,

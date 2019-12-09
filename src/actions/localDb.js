@@ -17,6 +17,7 @@ export function saveMessage(message, saveDB, setMessages, setChats, messages) {
 	let messagesCopy = [];
 	let messageId = 1;
 	if (messages !== null) {
+		console.log(messages);
 		messagesCopy = messages;
 		messageId = messagesCopy.length + 1;
 	}

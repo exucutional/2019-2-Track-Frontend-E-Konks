@@ -20,7 +20,7 @@ function ProfileForm(props) {
 		userName,
 		bio,
 	} = props.state;
-	const fullNameOnChange = (event) => setFullName(event.target.value);
+	const fullNameOnChange = (event) => setFullName(event.target.value);;
 	const userNameOnChange = (event) => setUserName(event.target.value);
 	const bioOnChange = (event) => setBio(event.target.value);
 	return (

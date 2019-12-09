@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react/destructuring-assignment */
 /* eslint-disable object-shorthand */
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import {
 	Switch,
 	Route
@@ -9,43 +9,24 @@ import {
 import PropTypes from 'prop-types'
 import ChatList from './ChatList';
 import MessageList from './MessageList';
+import MessageListCommon from './MessageListCommon';
 import ProfileForm from './ProfileForm';
-import { save, load } from '../actions/localDb';
+import { load } from '../actions/localDb';
 
-const MESSAGES_URL = 'http://localhost:8000/messages/list/'
 const MESSAGES_EVENT_URL = 'http://localhost:8000/messages/events/'
 
+const messageEvent = new EventSource(MESSAGES_EVENT_URL);
+
 function Body(props) {
-	let profile = load('profile');
-	if (profile === null) {
-		profile = {
-			fullName: '',
-			userName: 'admin',
-			bio: '',
-		}
-		save('profile', profile);
-	}
 	const [chats, setChats] = useState(load('chats'));
-	// const [messages, setMessages] = useState(load('messages'));
+	const [localMessages, setLocalMessages] = useState(load('messages'));
 	const [messages, setMessages] = useState([]);
 	const [inputValue, setInputValue] = useState('');
 	const [inputMode, setInputMode] = useState(false);
-	const [yourName, setYourName] = useState(profile.userName);
+	const [yourName, setYourName] = useState(props.state.userName);
 	const [messagesEnd, setMessagesEnd] = useState(false);
 	const [isRecording, setIsRecording] = useState(false);
-	const [newMessageEvent] = useState(new EventSource(MESSAGES_EVENT_URL))
-	useEffect(() => {
-		const pollMessages = () => {
-			fetch(`${MESSAGES_URL}`)
-				.then(resp => resp.json())
-				.then((data) => setMessages(data.messages))
-		};
-		newMessageEvent.onmessage = (event) => {
-			console.log('new message event');
-			pollMessages();
-		}
-		pollMessages();
-	}, []);
+	const [newMessageEvent, setNewMessageEvent] = useState(messageEvent);
 	const state = {
 		chats: chats,
 		setChats: setChats,
@@ -67,12 +48,19 @@ function Body(props) {
 		bio: props.state.bio,
 		isRecording: isRecording,
 		setIsRecording: setIsRecording,
+		newMessageEvent: newMessageEvent,
+		setNewMessageEvent: setNewMessageEvent,
+		localMessages: localMessages,
+		setLocalMessages: setLocalMessages,
 	};
 	if (messagesEnd) {
 		messagesEnd.scrollIntoView();
 	}
 	return (
 		<Switch>
+			<Route path='/chats/common'>
+				<MessageListCommon state={ state }/>
+			</Route>
 			<Route path='/chats/:chatId'>
 				<MessageList state={ state }/>
 			</Route>

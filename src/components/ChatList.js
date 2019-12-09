@@ -104,10 +104,19 @@ function ChatList(props) {
 	return (
 		<Container>
 			<ChatContainer>
+				<Chat
+					key='0'
+					id='common'
+					mode='common'
+					name='Мусорка'
+					time=''
+					last_message=''
+				/>
 				{chats.map((chat) => (
 					<Chat
 						key={chat.id}
 						id={chat.id}
+						mode='local'
 						name={chat.name}
 						time={chat.time}
 						last_message={chat.last_message}

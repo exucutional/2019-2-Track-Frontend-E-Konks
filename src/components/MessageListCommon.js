@@ -1,15 +1,12 @@
+/* eslint-disable react/jsx-boolean-value */
 /* eslint-disable react/prop-types */
 /* eslint-disable react/destructuring-assignment */
-import React from 'react'
-import {
-	useParams
-} from "react-router-dom";
+import React, { useEffect } from 'react'
 import useForm from 'react-hook-form';
 import styled from '@emotion/styled';
 import Message from './MessageForm';
 import Input from './MessageInput';
 import { getTime } from '../actions/time';
-import { saveMessage } from '../actions/localDb';
 
 const Container = styled.div`
 	display: flex;
@@ -28,12 +25,32 @@ const MessageContainer = styled.div`
 	background-color: rgba(0, 0, 0, 0.04);
 `;
 
-function MessageList(props) {
+const MESSAGE_CREATE_URL = 'http://localhost:8000/messages/create/'
+const MESSAGES_URL = 'http://localhost:8000/messages/list/'
+const USER_SEARCH_URL = 'http://localhost:8000/users/search/'
+
+const MessageCreate = (message) => {
+	const formData = new FormData();
+	fetch(`${USER_SEARCH_URL}?username=${message.name}`)
+		.then(resp => resp.json())
+		.then(user => {
+			formData.append('chat', message.chat_id);
+			formData.append('user', user.data.pop().id);
+			formData.append('content', message.content);
+			formData.append('added_at', message.added_at);
+			fetch(MESSAGE_CREATE_URL, {
+				method: 'POST',
+				body: formData
+			}).then(resp => console.log(resp));
+		})
+}
+
+function MessageListCommon(props) {
 	const {
 		inputValue,
 		setInputValue,
-		localMessages,
-		setLocalMessages,
+		messages,
+		setMessages,
 		yourName,
 		setYourName,
 		setChats,
@@ -41,27 +58,46 @@ function MessageList(props) {
 		userName,
 		isRecording,
 		setIsRecording,
+		newMessageEvent,
+		setUserName,
 	} = props.state;
 	// eslint-disable-next-line react/prop-types
-	const { chatId } = useParams();
+	const chatId = '1';
 	const { register, handleSubmit } = useForm();
 	const onSubmit = (values) => {
 		if (inputValue !== '') {
 			const curTime = getTime();
 			const message = {
-				name: yourName,
+				name: userName,
 				chat_id: Number(chatId),
 				added_at: curTime,
 				content: inputValue,
 			}
-			saveMessage(message, true, setLocalMessages, setChats, localMessages);
+			MessageCreate(message);
 			setInputValue('');
 		}
 	};
 	const handleYourMessage = () => setYourName(userName);
 	const handleCompanionMessage = () => setYourName('Companion');
 	const handleChange = (event) => setInputValue(event.target.value);
-	if (localMessages === null) {
+	const handleYourNameChange = (event) => setUserName(event.target.value);
+	useEffect(() => {
+		const pollMessages = () => {
+			fetch(`${MESSAGES_URL}`)
+				.then(resp => resp.json())
+				.then((data) => {
+					if (data.messages.length !== 0) {
+						setMessages(data.messages);
+					}
+				})
+		};
+		newMessageEvent.onmessage = (event) => {
+			console.log('new message event');
+			pollMessages();
+		}
+		pollMessages();
+	}, []);
+	if (messages === null) {
 		return (
 			<Container>
 				<MessageContainer id='messageContainer'/>
@@ -72,14 +108,16 @@ function MessageList(props) {
 					value={inputValue}
 					youOnTyping={handleYourMessage}
 					compOnTyping={handleCompanionMessage}
-					setMessages={setLocalMessages}
+					changeYourName={handleYourNameChange}
+					setMessages={setMessages}
 					yourName={yourName}
 					setChats={setChats}
 					chatId={chatId}
-					messages={localMessages}
+					messages={messages}
 					setIsRecording={setIsRecording}
 					isRecording={isRecording}
 					refer={register}
+					variableName={true}
 				/>
 			</Container>
 		);
@@ -87,7 +125,7 @@ function MessageList(props) {
 	return (
 		<Container>
 			<MessageContainer id='messageContainer'>
-				{localMessages
+				{messages
 					.filter((message) => message.chat_id === Number(chatId))
 					.map((message) => (
 						<Message
@@ -112,17 +150,19 @@ function MessageList(props) {
 				value={inputValue}
 				youOnTyping={handleYourMessage}
 				compOnTyping={handleCompanionMessage}
-				setMessages={setLocalMessages}
+				changeYourName={handleYourNameChange}
+				setMessages={setMessages}
 				yourName={yourName}
 				setChats={setChats}
 				chatId={chatId}
-				messages={localMessages}
+				messages={messages}
 				setIsRecording={setIsRecording}
 				isRecording={isRecording}
 				refer={register}
+				variableName={true}
 			/>
 		</Container>
 	);
 }
 
-export default MessageList;
+export default MessageListCommon;
