@@ -6,12 +6,13 @@ import {
 	Switch,
 	Route
 } from "react-router-dom";
-import PropTypes from 'prop-types'
+import { connect } from 'react-redux';
 import ChatList from './ChatList';
 import MessageList from './MessageList';
 import MessageListCommon from './MessageListCommon';
 import ProfileForm from './ProfileForm';
 import { load } from '../actions/localDb';
+import { getProfile } from '../actions/index';
 
 const MESSAGES_EVENT_URL = 'http://localhost:8000/messages/events/'
 
@@ -23,35 +24,38 @@ function Body(props) {
 	const [messages, setMessages] = useState([]);
 	const [inputValue, setInputValue] = useState('');
 	const [inputMode, setInputMode] = useState(false);
-	const [yourName, setYourName] = useState(props.state.userName);
+	const [yourName, setYourName] = useState(props.userName);
 	const [messagesEnd, setMessagesEnd] = useState(false);
 	const [isRecording, setIsRecording] = useState(false);
 	const [newMessageEvent, setNewMessageEvent] = useState(messageEvent);
+	const [fullName, setFullName] = useState(props.fullName);
+	const [userName, setUserName] = useState(props.userName);
+	const [bio, setBio] = useState(props.bio);
 	const state = {
-		chats: chats,
-		setChats: setChats,
-		messages: messages,
-		inputValue: inputValue,
-		inputMode: inputMode,
-		setInputValue: setInputValue,
-		setInputMode: setInputMode,
-		setYourName: setYourName,
-		setMessagesEnd: setMessagesEnd,
-		setMessages: setMessages,
-		yourName: yourName,
-		messagesEnd: messagesEnd,
-		setFullName: props.setFullName,
-		setUserName: props.setUserName,
-		setBio: props.setBio,
-		fullName: props.state.fullName,
-		userName: props.state.userName,
-		bio: props.state.bio,
-		isRecording: isRecording,
-		setIsRecording: setIsRecording,
-		newMessageEvent: newMessageEvent,
-		setNewMessageEvent: setNewMessageEvent,
-		localMessages: localMessages,
-		setLocalMessages: setLocalMessages,
+		chats,
+		setChats,
+		messages,
+		inputValue,
+		inputMode,
+		setInputValue,
+		setInputMode,
+		setYourName,
+		setMessagesEnd,
+		setMessages,
+		yourName,
+		messagesEnd,
+		setFullName,
+		setUserName,
+		setBio,
+		fullName,
+		userName,
+		bio,
+		isRecording,
+		setIsRecording,
+		newMessageEvent,
+		setNewMessageEvent,
+		localMessages,
+		setLocalMessages,
 	};
 	if (messagesEnd) {
 		messagesEnd.scrollIntoView();
@@ -74,10 +78,13 @@ function Body(props) {
 	);
 }
 
-Body.propTypes = {
-	setFullName: PropTypes.func.isRequired,
-	setUserName: PropTypes.func.isRequired,
-	setBio: PropTypes.func.isRequired,
-}
+const mapStateToProps = (state) => ({
+	fullName: state.profile.fullName,
+	userName: state.profile.userName,
+	bio: state.profile.bio,
+})
 
-export default Body;
+export default connect(
+	mapStateToProps,
+	{ getProfile },
+)(Body)

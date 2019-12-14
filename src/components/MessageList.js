@@ -4,12 +4,14 @@ import React from 'react'
 import {
 	useParams
 } from "react-router-dom";
+import { connect } from 'react-redux';
 import useForm from 'react-hook-form';
 import styled from '@emotion/styled';
 import Message from './MessageForm';
 import Input from './MessageInput';
 import { getTime } from '../actions/time';
 import { saveMessage } from '../actions/localDb';
+import { getProfile } from '../actions/index';
 
 const Container = styled.div`
 	display: flex;
@@ -38,10 +40,12 @@ function MessageList(props) {
 		setYourName,
 		setChats,
 		setMessagesEnd,
-		userName,
 		isRecording,
 		setIsRecording,
 	} = props.state;
+	const {
+		userName,
+	} = props;
 	// eslint-disable-next-line react/prop-types
 	const { chatId } = useParams();
 	const { register, handleSubmit } = useForm();
@@ -125,4 +129,11 @@ function MessageList(props) {
 	);
 }
 
-export default MessageList;
+const mapStateToProps = (state) => ({
+	userName: state.profile.userName,
+})
+
+export default connect(
+	mapStateToProps,
+	{ getProfile },
+)(MessageList)
