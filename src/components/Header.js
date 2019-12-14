@@ -8,6 +8,7 @@ import {
 	useParams,
 } from "react-router-dom";
 import styled from '@emotion/styled';
+import PropTypes from 'prop-types'
 import BackButton from './BackButton';
 import SearchButton from './SearchButton';
 import CheckButton from './CheckButton';
@@ -30,9 +31,18 @@ const Title = styled.span`
 	align-items: center;
 `;
 
-function ChatTitle() {
+function ChatTitle(props) {
 	const { chatId } = useParams();
-	const chatName = load('chats').filter((chat) => chat.id === Number(chatId))[0].name;
+	if (props.title !== '') {
+		return (
+			<Title>{ props.title }</Title>
+		)
+	}
+	const chats = load('chats');
+	let chatName = '';
+	if (chats !== null) {
+		chatName = load('chats').filter((chat) => chat.id === Number(chatId))[0].name;
+	}
 	return (
 		<Title>{ chatName }</Title>
 	);
@@ -50,6 +60,15 @@ function Header(props) {
 	}
 	return (
 		<Switch>
+			<Route path='/chats/common'>
+				<TopBar>
+					<Link to='/'>
+						<BackButton/>
+					</Link>
+					<ChatTitle title='Мусорка'/>
+					<span/>
+				</TopBar>
+			</Route>
 			<Route path='/chats/:chatId'>
 				<TopBar>
 					<Link to='/'>
@@ -77,6 +96,14 @@ function Header(props) {
 			</Route>
 		</Switch>
 	);
+}
+
+ChatTitle.defaultProps = {
+	title: '',
+}
+
+ChatTitle.propTypes = {
+	title: PropTypes.string,
 }
 
 export default Header;

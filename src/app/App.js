@@ -4,6 +4,7 @@ import { BrowserRouter as Router } from "react-router-dom";
 import styled from '@emotion/styled';
 import Header from '../components/Header';
 import Body from '../components/Body';
+import { save, load } from '../actions/localDb';
 
 const Container = styled.div``;
 
@@ -11,13 +12,22 @@ const Container = styled.div``;
 class App extends Component {
 	constructor(props) {
 		super(props);
+		let profile = load('profile');
+		if (profile === null) {
+			profile = {
+				fullName: '',
+				userName: 'admin',
+				bio: '',
+			}
+			save('profile', profile);
+		}
 		this.state = { 
 			mode: 'chats',
 			chatId: 0, 
 			title: 'Messenger',
-			fullName: '',
-			userName: 'admin',
-			bio: '',
+			fullName: profile.fullName,
+			userName: profile.userName,
+			bio: profile.bio,
 		};
 		this.setMessagesMode = this.setMessagesMode.bind(this);
 		this.setChatsMode = this.setChatsMode.bind(this);
@@ -61,7 +71,7 @@ class App extends Component {
 						state={this.state} 
 						setChatsMode={this.setChatsMode}/>
 					<Body 
-						state={this.state} 
+						state={this.state}
 						setMessagesMode={this.setMessagesMode}
 						setFullName={this.setFullName}
 						setUserName={this.setUserName}

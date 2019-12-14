@@ -76,8 +76,12 @@ function Chat(props) {
 		props.onClick(props.id, props.name);
 	};
 	*/
+	let link = props.id;
+	if (props.mode === 'common') {
+		link = 'common';
+	}
 	return (
-		<Link to={`/chats/${props.id}`} style={ { 
+		<Link to={`/chats/${link}`} style={ { 
 			textDecoration: 'none',
 			color: 'unset',
 		} }>
@@ -101,8 +105,12 @@ function Chat(props) {
 }
 
 Chat.propTypes = {
-	id: PropTypes.number.isRequired,
+	id: PropTypes.oneOfType([
+		PropTypes.number,
+		PropTypes.string
+	]).isRequired,
 	name: PropTypes.string.isRequired,
+	mode: PropTypes.string.isRequired,
 	time: PropTypes.string.isRequired,
 	last_message: PropTypes.string.isRequired,
 };
