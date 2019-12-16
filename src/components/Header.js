@@ -7,6 +7,7 @@ import {
 	Link,
 	useParams,
 } from "react-router-dom";
+import { connect } from 'react-redux';
 import styled from '@emotion/styled';
 import PropTypes from 'prop-types'
 import BackButton from './BackButton';
@@ -14,6 +15,7 @@ import SearchButton from './SearchButton';
 import CheckButton from './CheckButton';
 import MenuBar from './MenuBar';
 import { save, load } from '../actions/localDb';
+import { getProfile } from '../actions/index';
 
 const TopBar = styled.div`
 	display: flex;
@@ -51,9 +53,9 @@ function ChatTitle(props) {
 function Header(props) {
 	const profileOnClickSave = () => {
 		const profile = {
-			fullName: props.state.fullName,
-			userName: props.state.userName,
-			bio: props.state.bio,
+			fullName: props.fullName,
+			userName: props.userName,
+			bio: props.bio,
 		}
 		save('profile', profile);
 		alert("Saved!");
@@ -106,4 +108,13 @@ ChatTitle.propTypes = {
 	title: PropTypes.string,
 }
 
-export default Header;
+const mapStateToProps = (state) => ({
+	fullName: state.profile.fullName,
+	userName: state.profile.userName,
+	bio: state.profile.bio,
+})
+
+export default connect(
+	mapStateToProps,
+	{ getProfile },
+)(Header)
