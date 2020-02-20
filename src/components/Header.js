@@ -58,7 +58,6 @@ function Header(props) {
 			bio: props.bio,
 		}
 		save('profile', profile);
-		alert("Saved!");
 	}
 	return (
 		<Switch>

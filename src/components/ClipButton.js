@@ -57,7 +57,7 @@ function ClipButton(props) {
 				fetch('https://tt-front.now.sh/upload/', {
 					method: 'POST',
 					body: data,
-				}).then(response => console.log(response));
+				});
 			}
 		}
 	}

@@ -80,13 +80,11 @@ function VoiceRecordButton(props) {
 				fetch('https://tt-front.now.sh/upload/', {
 					method: 'POST',
 					body: data,
-				}).then(response => console.log(response));
+				});
 			});
 			mediaRecorder.addEventListener('dataavailable', (event) => {
 				chunks.push(event.data);
 			});
-		}).catch((err) => {
-			console.log(err.message);
 		});
 	}
 	if (isRecording) {

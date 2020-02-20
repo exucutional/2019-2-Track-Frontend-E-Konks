@@ -21,7 +21,6 @@ function LocationButton(props) {
 				props.setInputValue(`https://www.openstreetmap.org/#map=18/${latitude}/${longitude}`);
 			};
 			const geoError = (error) => {
-				console.log(error.message);
 			};
 			const geoOptions = {
 				enableHighAccuracy: true,
