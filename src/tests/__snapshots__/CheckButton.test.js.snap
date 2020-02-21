@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<img
+  className="css-mq31ep"
+  onClick={[Function]}
+  src="https://image.flaticon.com/icons/svg/446/446191.svg"
+/>
+`;

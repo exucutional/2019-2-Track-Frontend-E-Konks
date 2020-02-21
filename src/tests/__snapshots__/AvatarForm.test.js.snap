@@ -1,0 +1,8 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<img
+  className="css-nc47br"
+  src="https://image.flaticon.com/icons/svg/918/918761.svg"
+/>
+`;

@@ -41,7 +41,7 @@ const MessageCreate = (message) => {
 			fetch(MESSAGE_CREATE_URL, {
 				method: 'POST',
 				body: formData
-			}).then(resp => console.log(resp));
+			});
 		})
 }
 
@@ -92,7 +92,6 @@ function MessageListCommon(props) {
 				})
 		};
 		newMessageEvent.onmessage = (event) => {
-			console.log('new message event');
 			pollMessages();
 		}
 		pollMessages();
