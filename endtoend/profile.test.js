@@ -14,7 +14,7 @@ describe('Profile', () => {
 	});
 	it('should exist', async () => {
 		await expect(page).toClick('#menu-button');
-		await page.waitFor(400);
+		await page.waitFor(800);
 		await expect(page).toClick('a[href="/profile"]');
 	});
 	it('should change username', async () => {
