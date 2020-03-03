@@ -38,6 +38,7 @@ function ProfileForm(props) {
 				onChange={ fullNameOnChange }
 				label='Full name'
 				value={ fullName }
+				id='profile-input-fullname'
 				info=''/>
 			<ProfileInput
 				onChange={ userNameOnChange }
@@ -45,12 +46,14 @@ function ProfileForm(props) {
 				minLength='5'
 				required='t'
 				value={ userName }
+				id='profile-input-username'
 				info='Minimum lenght is 5 characters'/>
 			<ProfileInput
 				onChange={ bioOnChange }
 				label='Bio'
 				textarea='t'
 				value={ bio }
+				id='profile-input-bio'
 				info='Any detail about you'/>
 		</Profile>
 	);

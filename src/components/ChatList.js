@@ -43,12 +43,14 @@ function NameInput(props) {
 						value={props.value}
 						onChange={props.onChange}
 						style={{ display: 'flex', fontSize: 'inherit', width: '100%' }}
+						id="create-chat-name"
 					/>
 				</label>
 				<input
 					type="submit"
 					value="Создать"
 					style={{ position: 'relative', fontSize: 'inherit', cursor: 'pointer' }}
+					id="create-chat-submit"
 				/>
 			</Form>
 		);

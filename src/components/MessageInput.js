@@ -80,7 +80,7 @@ function Source(props) {
 
 function Input(props) {
 	return (
-		<Form onSubmit={props.onSubmit}>
+		<Form onSubmit={props.onSubmit} id='message-input-form'>
 			<ContentInput
 				type="text"
 				placeholder="Сообщение"

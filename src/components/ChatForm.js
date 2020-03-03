@@ -81,7 +81,7 @@ function Chat(props) {
 		link = 'common';
 	}
 	return (
-		<Link to={`/chats/${link}`} style={ { 
+		<Link to={`/chats/${link}`} id={`link-to-chat${props.id}`} style={ { 
 			textDecoration: 'none',
 			color: 'unset',
 		} }>
