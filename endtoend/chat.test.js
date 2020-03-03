@@ -7,6 +7,7 @@ const timeout = 1000;
 describe('Chat', () => {
 	let page;
 	let browser;
+	jest.setTimeout(300000);
 	beforeAll(async () => {
 		browser = await puppeteer.launch({headless: false});
 		page = await browser.newPage();
