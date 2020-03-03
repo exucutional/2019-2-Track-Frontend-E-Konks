@@ -6,7 +6,7 @@ const timeout = 1000;
 
 describe('Chat', () => {
 	let page;
-	let browser
+	let browser;
 	beforeAll(async () => {
 		browser = await puppeteer.launch({headless: false});
 		page = await browser.newPage();
