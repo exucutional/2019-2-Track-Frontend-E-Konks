@@ -35,6 +35,7 @@ function CreateChatButton(props) {
 		<Container>
 			<Button
 				src="https://image.flaticon.com/icons/svg/1159/1159633.svg"
+				id="create-chat-button"
 				onClick={props.onClick}
 			/>
 		</Container>

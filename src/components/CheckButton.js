@@ -15,7 +15,7 @@ const Button = styled.img`
 `;
 
 function CheckButton(props) {
-	return <Button onClick={ props.onClick } src="https://image.flaticon.com/icons/svg/446/446191.svg"/>;
+	return <Button id='check-button' onClick={ props.onClick } src="https://image.flaticon.com/icons/svg/446/446191.svg"/>;
 }
 
 CheckButton.propTypes = {

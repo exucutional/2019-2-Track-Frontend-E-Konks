@@ -94,6 +94,7 @@ function ProfileInput(props) {
 			<div>
 				<Container>
 					<Input 
+						id={ props.id }
 						type='text' 
 						minLength={ props.minLength } 
 						required={ props.required }
@@ -129,6 +130,7 @@ ProfileInput.defaultProps = {
 }
 
 ProfileInput.propTypes = {
+	id: PropType.string.isRequired,
 	textarea: PropType.string,
 	minLength: PropType.string,
 	required: PropType.string,

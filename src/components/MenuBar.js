@@ -75,7 +75,7 @@ const MenuCell = styled.li`
 
 function MenuBar() {
 	return (
-		<MenuToggle>
+		<MenuToggle id='menu-button'>
 			<Input type="checkbox"/>
 			<Cell/>
 			<Cell/>

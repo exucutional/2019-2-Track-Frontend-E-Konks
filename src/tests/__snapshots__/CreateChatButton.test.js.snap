@@ -6,6 +6,7 @@ exports[`renders correctly 1`] = `
 >
   <img
     className="css-1qz7riz"
+    id="create-chat-button"
     onClick={[Function]}
     src="https://image.flaticon.com/icons/svg/1159/1159633.svg"
   />
