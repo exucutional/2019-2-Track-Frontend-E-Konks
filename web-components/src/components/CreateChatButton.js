@@ -10,7 +10,12 @@ template.innerHTML = `
         width: 2.5em;
         position: fixed;
         right: 20px;
-        bottom: 20px;
+        bottom: 20px; 
+    }
+
+    .create-chat-button:hover {
+        cursor: pointer;
+        animation: pulse 2s infinite ease-in-out;
     }
 
     create-chat-form {
@@ -18,7 +23,25 @@ template.innerHTML = `
         margin: 1em;
         border: solid;
         width: fit-content;
+        position: fixed;
+        bottom: 0px;
     }
+
+    @keyframes pulse {
+      0% {
+        transform: scale(1, 1);
+        blur(0);
+      }
+      50% {
+        transform: scale(1.1, 1.1);
+        filter: blur(1px);
+      }
+      100% {
+        transform: scale(1, 1);
+        filter: blur(0);
+      }
+    }
+
     </style>
     <form>
         <create-chat-form></create-chat-form>

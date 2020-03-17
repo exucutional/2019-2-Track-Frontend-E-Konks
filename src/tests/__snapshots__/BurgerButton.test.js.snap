@@ -1,0 +1,8 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<img
+  className="css-m3iz7d"
+  src="http://vcmediapartners.com/media/images/hamburger-white.svg"
+/>
+`;

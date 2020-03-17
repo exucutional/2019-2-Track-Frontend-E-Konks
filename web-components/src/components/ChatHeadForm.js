@@ -6,31 +6,33 @@ template.innerHTML = `
             display: flex;
             flex-direction: row;
             justify-content: space-between;
-            background-color: #C8A2C8;
-            height: 6.5vh;
+            background-color: #8E24AA;
+            height: 8vh;
         }
 
         .burger-button {
             display: flex;
             width: 3em;
+            margin-left: 10px;
         }
 
         .search-button {
             width: 2em;
             margin-right: 10px;
+            filter: invert(1);
         }
 
         .title {
             display: flex;
-            font-size: 6.5vh;
+            font-size: 7vh;
             align-self: center;
-            margin-bottom: 10px;
             font-family: monospace;
+            color: white;
         }
     </style>
     <form>
         <div class='flex-container-row'>
-            <img src='https://image.flaticon.com/icons/svg/60/60510.svg' class='burger-button'>
+            <img src='http://vcmediapartners.com/media/images/hamburger-white.svg' class='burger-button'>
             <span class='title'>Messenger</span>
             <img src='https://image.flaticon.com/icons/svg/149/149309.svg' class='search-button'>
             </div>
