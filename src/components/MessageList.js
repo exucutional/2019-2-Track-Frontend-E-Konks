@@ -9,6 +9,7 @@ import useForm from 'react-hook-form';
 import styled from '@emotion/styled';
 import Message from './MessageForm';
 import Input from './MessageInput';
+import EmojiList from './EmojiList';
 import { getTime } from '../actions/time';
 import { saveMessage } from '../actions/localDb';
 import { getProfile } from '../actions/index';
@@ -42,6 +43,8 @@ function MessageList(props) {
 		setMessagesEnd,
 		isRecording,
 		setIsRecording,
+		emojiMode,
+		setEmojiMode,
 	} = props.state;
 	const {
 		userName,
@@ -65,6 +68,7 @@ function MessageList(props) {
 	const handleYourMessage = () => setYourName(userName);
 	const handleCompanionMessage = () => setYourName('Companion');
 	const handleChange = (event) => setInputValue(event.target.value);
+	const changeEmojiMode = () => setEmojiMode(!emojiMode);
 	if (localMessages === null) {
 		return (
 			<Container>
@@ -84,6 +88,12 @@ function MessageList(props) {
 					setIsRecording={setIsRecording}
 					isRecording={isRecording}
 					refer={register}
+					changeEmojiMode={changeEmojiMode}
+				/>
+				<EmojiList
+					emojiMode={emojiMode}
+					inputValue={inputValue}
+					setInputValue={setInputValue}
 				/>
 			</Container>
 		);
@@ -124,6 +134,12 @@ function MessageList(props) {
 				setIsRecording={setIsRecording}
 				isRecording={isRecording}
 				refer={register}
+				changeEmojiMode={changeEmojiMode}
+			/>
+			<EmojiList
+				emojiMode={emojiMode}
+				inputValue={inputValue}
+				setInputValue={setInputValue}
 			/>
 		</Container>
 	);

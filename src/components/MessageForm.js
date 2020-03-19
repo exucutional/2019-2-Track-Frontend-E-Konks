@@ -3,6 +3,8 @@ import React from 'react';
 import styled from '@emotion/styled';
 import { keyframes } from '@emotion/core';
 import PropTypes from 'prop-types';
+import { emojiList } from '../constants/emojiList';
+import '../styles/emojiList.scss';
 
 const Appear = keyframes`
 	0% {
@@ -86,9 +88,31 @@ const Content = styled.div`
 		margin-left: -13.5px;
 		margin-top: -15px;
 	}
+	flex-wrap: wrap;
 `;
 
 const Audio = styled.audio``;
+
+const EmojiForm = styled.div`
+	padding: 0;
+`;
+
+function EmojiReplacer(input) {
+	const tokens = input.split(/(:)/g);
+	let emojiIndex = -1;
+	while ( (emojiIndex = tokens.findIndex((item, index, array) => {
+		const emojiExist = emojiList.some((emoji) => emoji === item);
+		return emojiExist && array[index - 1] === ':' && array[index + 1] === ':';
+	})) !== -1) {
+		tokens[emojiIndex - 1] = '';
+		tokens[emojiIndex + 1] = '';
+		tokens[emojiIndex] = 
+		<EmojiForm
+			className={`emoji ${tokens[emojiIndex]}`}
+		/>
+	}
+	return tokens;
+}
 
 function ContentAnalyzer(props) {
 	switch (props.type) {
@@ -110,7 +134,7 @@ function ContentAnalyzer(props) {
 		);
 	}
 	return (
-		<Content>{props.value}</Content>
+		<Content>{EmojiReplacer(props.value)}</Content>
 	);
 }
 

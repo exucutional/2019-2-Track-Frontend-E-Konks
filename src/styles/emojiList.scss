@@ -1,0 +1,22 @@
+.emoji {
+  min-width: 32px;
+  min-height: 32px;
+  align-self: center;
+  padding: 5px;
+}
+
+.emoji:hover {
+  filter: invert(0.1);
+}
+
+$emojiList:
+  'grinning-face' 'angry-face' 'confused-face' 'disappointed-face'
+  'expressionless-face' 'face-blowing-a-kiss'
+  'face-with-medical-mask' 'face-with-raised-eyebrow' 'face-with-tongue'
+  'flushed-face' 'neutral-face';
+
+@each $emoji in $emojiList {
+  .#{$emoji} {
+    background: url('../assets/emoji/people/#{$emoji}.png?sprite') no-repeat;
+  }
+}
