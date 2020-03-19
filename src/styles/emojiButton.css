@@ -1,0 +1,13 @@
+.emoji-button {
+  min-width: 32px;
+  min-height: 32px;
+  align-self: center;
+  outline: none;
+  border: 0;
+  background: url('../assets/emoji/people/grinning-face.png?sprite') no-repeat;
+}
+
+.emoji-button:hover {
+  filter: invert(0.1);
+}
+;

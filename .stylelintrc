@@ -1,0 +1,10 @@
+{
+    "plugins": [
+        "stylelint-a11y", 
+        "stylelint-use-nesting",
+        "stylelint-scss",
+    ],
+    "rules": {
+        "csstools/use-nesting": "ignore",
+    }
+}
