@@ -115,6 +115,9 @@ module.exports = function(webpackEnv) {
           sourceMap: isEnvProduction && shouldUseSourceMap,
         },
       },
+      {
+        loader: 'css-sprite-loader',
+      }
     ].filter(Boolean);
     if (preProcessor) {
       loaders.push(
