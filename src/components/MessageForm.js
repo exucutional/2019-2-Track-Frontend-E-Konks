@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 /* eslint-disable react/destructuring-assignment */
 import React from 'react';
 import styled from '@emotion/styled';
@@ -97,19 +98,28 @@ const EmojiForm = styled.div`
 	padding: 0;
 `;
 
+function findEmoji(tokens) {
+	return tokens.findIndex((item, index, array) => {
+		const emojiExist = emojiList.includes(item);
+		const token = array[index - 1];
+		return emojiExist && (token === array[index + 1] && token === ":");
+	})
+}
+
+function insertEmoji(tokens, index) {
+	tokens[index - 1] = '';
+	tokens[index + 1] = '';
+	tokens[index] = 
+	<EmojiForm
+		className={`emoji ${tokens[index]}`}
+	/>;
+}
+
 function EmojiReplacer(input) {
 	const tokens = input.split(/(:)/g);
-	let emojiIndex = -1;
-	while ( (emojiIndex = tokens.findIndex((item, index, array) => {
-		const emojiExist = emojiList.some((emoji) => emoji === item);
-		return emojiExist && array[index - 1] === ':' && array[index + 1] === ':';
-	})) !== -1) {
-		tokens[emojiIndex - 1] = '';
-		tokens[emojiIndex + 1] = '';
-		tokens[emojiIndex] = 
-		<EmojiForm
-			className={`emoji ${tokens[emojiIndex]}`}
-		/>
+	let index = -1;
+	while ( (index = findEmoji(tokens)) !== -1) {
+		insertEmoji(tokens, index)
 	}
 	return tokens;
 }
