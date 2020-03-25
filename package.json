@@ -79,6 +79,7 @@
     "babel-plugin-styled-components": "^1.10.7",
     "babel-polyfill": "^6.26.0",
     "browser-sync": "^2.26.7",
+    "centrifuge": "^2.4.0",
     "check-engine": "^1.8.0",
     "create-react-app": "^3.4.0",
     "css-sprite-loader": "^0.3.4",
