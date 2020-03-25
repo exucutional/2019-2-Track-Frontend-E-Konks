@@ -6,7 +6,10 @@ import useForm from 'react-hook-form';
 import styled from '@emotion/styled';
 import Message from './MessageForm';
 import Input from './MessageInput';
+import EmojiList from './EmojiList';
 import { getTime } from '../actions/time';
+
+const Centrifuge = require('centrifuge');
 
 const Container = styled.div`
 	display: flex;
@@ -29,6 +32,8 @@ const MESSAGE_CREATE_URL = 'http://localhost:8000/messages/create/'
 const MESSAGES_URL = 'http://localhost:8000/messages/list/'
 const USER_SEARCH_URL = 'http://localhost:8000/users/search/'
 
+const CENTRIFUGE_WS_URL = 'ws://localhost:8001/connection/websocket';
+
 const MessageCreate = (message) => {
 	const formData = new FormData();
 	fetch(`${USER_SEARCH_URL}?username=${message.name}`)
@@ -45,7 +50,7 @@ const MessageCreate = (message) => {
 		})
 }
 
-function MessageListCommon(props) {
+function MessageListCentrifuge(props) {
 	const {
 		inputValue,
 		setInputValue,
@@ -58,8 +63,9 @@ function MessageListCommon(props) {
 		userName,
 		isRecording,
 		setIsRecording,
-		newMessageEvent,
 		setUserName,
+		emojiMode,
+		setEmojiMode,
 	} = props.state;
 	// eslint-disable-next-line react/prop-types
 	const chatId = '1';
@@ -81,7 +87,15 @@ function MessageListCommon(props) {
 	const handleCompanionMessage = () => setYourName('Companion');
 	const handleChange = (event) => setInputValue(event.target.value);
 	const handleYourNameChange = (event) => setUserName(event.target.value);
+	const changeEmojiMode = () => setEmojiMode(!emojiMode);
 	useEffect(() => {
+		const centrifuge = new Centrifuge(CENTRIFUGE_WS_URL);
+		centrifuge.subscribe("chats:centrifuge", (resp) => {
+			if (resp.data.status === 'ok') {
+				pollMessages();
+			}
+		});
+		centrifuge.connect();
 		const pollMessages = () => {
 			fetch(`${MESSAGES_URL}`)
 				.then(resp => resp.json())
@@ -91,11 +105,8 @@ function MessageListCommon(props) {
 					}
 				})
 		};
-		newMessageEvent.onmessage = (event) => {
-			pollMessages();
-		}
 		pollMessages();
-	}, [newMessageEvent, setMessages]);
+	}, []);
 	if (messages === null) {
 		return (
 			<Container>
@@ -117,6 +128,12 @@ function MessageListCommon(props) {
 					isRecording={isRecording}
 					refer={register}
 					variableName={true}
+					changeEmojiMode={changeEmojiMode}
+				/>
+				<EmojiList
+					emojiMode={emojiMode}
+					inputValue={inputValue}
+					setInputValue={setInputValue}
 				/>
 			</Container>
 		);
@@ -159,9 +176,15 @@ function MessageListCommon(props) {
 				isRecording={isRecording}
 				refer={register}
 				variableName={true}
+				changeEmojiMode={changeEmojiMode}
+			/>
+			<EmojiList
+				emojiMode={emojiMode}
+				inputValue={inputValue}
+				setInputValue={setInputValue}
 			/>
 		</Container>
 	);
 }
 
-export default MessageListCommon;
+export default MessageListCentrifuge;

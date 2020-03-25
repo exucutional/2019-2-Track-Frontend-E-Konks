@@ -9,7 +9,7 @@ import {
 import { connect } from 'react-redux';
 import ChatList from './ChatList';
 import MessageList from './MessageList';
-import MessageListCommon from './MessageListCentrifuge';
+import MessageListCentrifuge from './MessageListCentrifuge';
 import ProfileForm from './ProfileForm';
 import { load } from '../actions/localDb';
 import { getProfile } from '../actions/index';
@@ -65,8 +65,8 @@ function Body(props) {
 	}
 	return (
 		<Switch>
-			<Route path='/chats/common'>
-				<MessageListCommon state={ state }/>
+			<Route path='/chats/centrifuge'>
+				<MessageListCentrifuge state={ state }/>
 			</Route>
 			<Route path='/chats/:chatId'>
 				<MessageList state={ state }/>
