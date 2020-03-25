@@ -2,8 +2,7 @@ import React from 'react';
 import PropType from 'prop-types';
 import '../styles/emojiButton.css';
 
-export default function EmojuButton(props) {
-	const {onClick} = props;
+export default function EmojuButton({onClick}) {
 	return (
 		<input
 			className='emoji-button'
