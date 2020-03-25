@@ -9,7 +9,7 @@ import {
 import { connect } from 'react-redux';
 import ChatList from './ChatList';
 import MessageList from './MessageList';
-import MessageListCommon from './MessageListCommon';
+import MessageListCommon from './MessageListCentrifuge';
 import ProfileForm from './ProfileForm';
 import { load } from '../actions/localDb';
 import { getProfile } from '../actions/index';

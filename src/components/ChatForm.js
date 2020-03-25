@@ -77,8 +77,8 @@ function Chat(props) {
 	};
 	*/
 	let link = props.id;
-	if (props.mode === 'common') {
-		link = 'common';
+	if (props.mode === 'centrifuge') {
+		link = 'centrifuge';
 	}
 	return (
 		<Link to={`/chats/${link}`} id={`link-to-chat${props.id}`} style={ { 

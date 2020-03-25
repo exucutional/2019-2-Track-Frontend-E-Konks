@@ -61,12 +61,12 @@ function Header(props) {
 	}
 	return (
 		<Switch>
-			<Route path='/chats/common'>
+			<Route path='/chats/centrifuge'>
 				<TopBar>
 					<Link to='/'>
 						<BackButton/>
 					</Link>
-					<ChatTitle title='Мусорка'/>
+					<ChatTitle title='Centrifuge'/>
 					<span/>
 				</TopBar>
 			</Route>

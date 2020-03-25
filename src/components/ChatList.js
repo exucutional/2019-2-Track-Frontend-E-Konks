@@ -94,6 +94,14 @@ function ChatList(props) {
 		return (
 			<Container>
 				<ChatContainer />
+				<Chat
+					key='0'
+					id='common'
+					mode='centrifuge'
+					name='Centrifuge'
+					time=''
+					last_message=''
+				/>
 				<CreateChatButton onClick={InputOnClick} />
 				<NameInput
 					mode={inputMode}
@@ -109,8 +117,8 @@ function ChatList(props) {
 				<Chat
 					key='0'
 					id='common'
-					mode='common'
-					name='Мусорка'
+					mode='centrifuge'
+					name='Centrifuge'
 					time=''
 					last_message=''
 				/>
