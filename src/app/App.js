@@ -13,7 +13,6 @@ class App extends Component {
 	constructor(props) {
 		super(props);
 		const mpeer = new Peer();
-		mpeer.on('error', (err) => { console.log(err); });
 		this.state = { 
 			mode: 'chats',
 			chatId: 0, 
@@ -44,7 +43,7 @@ class App extends Component {
 			title: 'Messenger',
 		}));
 	}
-	
+
 	render() {
 		return (
 			<Router>

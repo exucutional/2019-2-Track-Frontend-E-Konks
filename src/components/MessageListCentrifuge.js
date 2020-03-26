@@ -71,7 +71,7 @@ function MessageListCentrifuge(props) {
 				})
 		};
 		pollMessages();
-	}, []);
+	}, [setMessages]);
 	if (messages === null) {
 		return EmptyMessageList(props, chatId, onSubmit, variableName, messages, setMessages);
 	}
