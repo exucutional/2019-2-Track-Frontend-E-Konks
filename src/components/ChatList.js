@@ -96,7 +96,15 @@ function ChatList(props) {
 				<ChatContainer />
 				<Chat
 					key='0'
-					id='common'
+					id='webrtc'
+					mode='webrtc'
+					name='WebRTC'
+					time=''
+					last_message=''
+				/>
+				<Chat
+					key='1'
+					id='centrifuge'
 					mode='centrifuge'
 					name='Centrifuge'
 					time=''
@@ -116,7 +124,15 @@ function ChatList(props) {
 			<ChatContainer>
 				<Chat
 					key='0'
-					id='common'
+					id='webrtc'
+					mode='webrtc'
+					name='WebRTC'
+					time=''
+					last_message=''
+				/>
+				<Chat
+					key='1'
+					id='centrifuge'
 					mode='centrifuge'
 					name='Centrifuge'
 					time=''

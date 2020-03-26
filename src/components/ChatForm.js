@@ -80,6 +80,9 @@ function Chat(props) {
 	if (props.mode === 'centrifuge') {
 		link = 'centrifuge';
 	}
+	if (props.mode === 'webrtc') {
+		link = 'webrtc';
+	}
 	return (
 		<Link to={`/chats/${link}`} id={`link-to-chat${props.id}`} style={ { 
 			textDecoration: 'none',

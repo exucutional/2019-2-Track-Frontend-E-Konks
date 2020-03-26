@@ -33,6 +33,14 @@ const Title = styled.span`
 	align-items: center;
 `;
 
+const ID = styled.div`
+	display: flex;
+	font-size: 2vh;
+	font-family: monospace;
+	color: white;
+	align-items: center;
+`
+
 function ChatTitle(props) {
 	const { chatId } = useParams();
 	if (props.title !== '') {
@@ -61,6 +69,16 @@ function Header(props) {
 	}
 	return (
 		<Switch>
+			<Route path='/chats/webrtc'>
+				<TopBar>
+					<Link to='/'>
+						<BackButton/>
+					</Link>
+					<ChatTitle title='WebRTC'/>
+					<ID>Your ID: {props.state.peer.id}</ID>
+					<span/>
+				</TopBar>
+			</Route>
 			<Route path='/chats/centrifuge'>
 				<TopBar>
 					<Link to='/'>

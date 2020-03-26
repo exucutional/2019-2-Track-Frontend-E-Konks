@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-boolean-value */
 /* eslint-disable react/prop-types */
 /* eslint-disable react/destructuring-assignment */
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 import { getTime } from '../actions/time';
 import { EmptyMessageList, MessageList } from './MessageList';
 

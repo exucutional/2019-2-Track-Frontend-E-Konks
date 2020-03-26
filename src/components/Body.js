@@ -10,7 +10,9 @@ import { connect } from 'react-redux';
 import ChatList from './ChatList';
 import LocalMessageList from './LocalMessageList';
 import MessageListCentrifuge from './MessageListCentrifuge';
+import MessageListWebRTC from './MessageListWebRTC';
 import ProfileForm from './ProfileForm';
+import ForeignIdInput from './ForeignIdInput';
 import { load } from '../actions/localDb';
 import { getProfile } from '../actions/index';
 
@@ -24,6 +26,7 @@ function Body(props) {
 	const [messages, setMessages] = useState([]);
 	const [inputValue, setInputValue] = useState('');
 	const [inputMode, setInputMode] = useState(false);
+	const [foreignIdInputMode, setForeignIdInputMode] = useState(true);
 	const [yourName, setYourName] = useState(props.userName);
 	const [messagesEnd, setMessagesEnd] = useState(false);
 	const [isRecording, setIsRecording] = useState(false);
@@ -32,6 +35,8 @@ function Body(props) {
 	const [userName, setUserName] = useState(props.userName);
 	const [bio, setBio] = useState(props.bio);
 	const [emojiMode, setEmojiMode] = useState(false);
+	const [foreignPeerId, setForeignPeerId] = useState("");
+	const [myPeerConn, setMyPeerConn] = useState();
 	const state = {
 		chats,
 		setChats,
@@ -59,12 +64,24 @@ function Body(props) {
 		setLocalMessages,
 		emojiMode,
 		setEmojiMode,
+		foreignPeerId,
+		setForeignPeerId,
+		foreignIdInputMode,
+		setForeignIdInputMode,
+		myPeerConn,
+		setMyPeerConn,
+		peer: props.state.peer,
+		foreignPeerConn: props.state.foreignPeerConn,
 	};
 	if (messagesEnd) {
 		messagesEnd.scrollIntoView();
 	}
 	return (
 		<Switch>
+			<Route path='/chats/webrtc'>
+				<MessageListWebRTC state={ state }/>
+				<ForeignIdInput state={ state }/>
+			</Route>
 			<Route path='/chats/centrifuge'>
 				<MessageListCentrifuge state={ state }/>
 			</Route>
