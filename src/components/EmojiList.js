@@ -16,16 +16,10 @@ const Container = styled.div`
 const EmojiForm = styled.div`
 `;
 
-export default function EmojiList(props) {
-	const {
-		emojiMode,
-		inputValue,
-		setInputValue,
-	} = props;
+export default function EmojiList({emojiMode, inputValue, setInputValue}) {
 	const onClick = (event) => setInputValue(`${inputValue}:${event.target.id}:`);
-	if (!emojiMode)
-		return( <div/> );
 	return (
+		emojiMode && 
 		<Container>
 			{emojiList
 				.map((emoji) => (
