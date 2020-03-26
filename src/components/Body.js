@@ -8,7 +8,7 @@ import {
 } from "react-router-dom";
 import { connect } from 'react-redux';
 import ChatList from './ChatList';
-import MessageList from './MessageList';
+import LocalMessageList from './LocalMessageList';
 import MessageListCentrifuge from './MessageListCentrifuge';
 import ProfileForm from './ProfileForm';
 import { load } from '../actions/localDb';
@@ -69,7 +69,7 @@ function Body(props) {
 				<MessageListCentrifuge state={ state }/>
 			</Route>
 			<Route path='/chats/:chatId'>
-				<MessageList state={ state }/>
+				<LocalMessageList state={ state }/>
 			</Route>
 			<Route path='/profile'>
 				<ProfileForm state={ state }/>
