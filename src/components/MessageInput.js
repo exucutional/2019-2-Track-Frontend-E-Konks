@@ -5,6 +5,7 @@ import PropType from 'prop-types';
 import ClipButton from './ClipButton';
 import LocationButton from './LocationButton';
 import VoiceRecordButton from './VoiceRecordButton';
+import EmojuButton from './EmojiButton';
 
 const Form = styled.form`
 	display: flex;
@@ -81,6 +82,9 @@ function Source(props) {
 function Input(props) {
 	return (
 		<Form onSubmit={props.onSubmit} id='message-input-form'>
+			<EmojuButton
+				onClick={props.changeEmojiMode}
+			/>
 			<ContentInput
 				type="text"
 				placeholder="Сообщение"
@@ -146,6 +150,7 @@ Input.propTypes = {
 	setChats: PropType.func.isRequired,
 	isRecording: PropType.bool.isRequired,
 	setIsRecording: PropType.func.isRequired,
+	changeEmojiMode: PropType.func.isRequired,
 };
 
 export default Input;

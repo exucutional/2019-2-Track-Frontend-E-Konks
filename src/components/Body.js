@@ -31,6 +31,7 @@ function Body(props) {
 	const [fullName, setFullName] = useState(props.fullName);
 	const [userName, setUserName] = useState(props.userName);
 	const [bio, setBio] = useState(props.bio);
+	const [emojiMode, setEmojiMode] = useState(false);
 	const state = {
 		chats,
 		setChats,
@@ -56,6 +57,8 @@ function Body(props) {
 		setNewMessageEvent,
 		localMessages,
 		setLocalMessages,
+		emojiMode,
+		setEmojiMode,
 	};
 	if (messagesEnd) {
 		messagesEnd.scrollIntoView();

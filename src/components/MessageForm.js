@@ -1,8 +1,11 @@
+/* eslint-disable no-param-reassign */
 /* eslint-disable react/destructuring-assignment */
 import React from 'react';
 import styled from '@emotion/styled';
 import { keyframes } from '@emotion/core';
 import PropTypes from 'prop-types';
+import { emojiList } from '../constants/emojiList';
+import '../styles/emojiList.scss';
 
 const Appear = keyframes`
 	0% {
@@ -86,9 +89,40 @@ const Content = styled.div`
 		margin-left: -13.5px;
 		margin-top: -15px;
 	}
+	flex-wrap: wrap;
 `;
 
 const Audio = styled.audio``;
+
+const EmojiForm = styled.div`
+	padding: 0;
+`;
+
+function findEmoji(tokens) {
+	return tokens.findIndex((item, index, array) => {
+		const emojiExist = emojiList.includes(item);
+		const token = array[index - 1];
+		return emojiExist && (token === array[index + 1] && token === ":");
+	})
+}
+
+function insertEmoji(tokens, index) {
+	tokens[index - 1] = '';
+	tokens[index + 1] = '';
+	tokens[index] = 
+	<EmojiForm
+		className={`emoji ${tokens[index]}`}
+	/>;
+}
+
+function EmojiReplacer(input) {
+	const tokens = input.split(/(:)/g);
+	let index = -1;
+	while ( (index = findEmoji(tokens)) !== -1) {
+		insertEmoji(tokens, index)
+	}
+	return tokens;
+}
 
 function ContentAnalyzer(props) {
 	switch (props.type) {
@@ -110,7 +144,7 @@ function ContentAnalyzer(props) {
 		);
 	}
 	return (
-		<Content>{props.value}</Content>
+		<Content>{EmojiReplacer(props.value)}</Content>
 	);
 }
 
