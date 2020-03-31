@@ -113,10 +113,7 @@ module.exports = function(webpackEnv) {
             postcssNormalize(),
           ],
           sourceMap: isEnvProduction && shouldUseSourceMap,
-        },
-      },
-      {
-        loader: 'css-sprite-loader',
+          },
       }
     ].filter(Boolean);
     if (preProcessor) {
@@ -126,6 +123,9 @@ module.exports = function(webpackEnv) {
           options: {
             sourceMap: isEnvProduction && shouldUseSourceMap,
           },
+        },
+        {
+          loader: 'css-sprite-loader'
         },
         {
           loader: require.resolve(preProcessor),
