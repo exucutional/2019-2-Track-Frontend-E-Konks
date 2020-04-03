@@ -94,6 +94,22 @@ function ChatList(props) {
 		return (
 			<Container>
 				<ChatContainer />
+				<Chat
+					key='0'
+					id='webrtc'
+					mode='webrtc'
+					name='WebRTC'
+					time=''
+					last_message=''
+				/>
+				<Chat
+					key='1'
+					id='centrifuge'
+					mode='centrifuge'
+					name='Centrifuge'
+					time=''
+					last_message=''
+				/>
 				<CreateChatButton onClick={InputOnClick} />
 				<NameInput
 					mode={inputMode}
@@ -108,9 +124,17 @@ function ChatList(props) {
 			<ChatContainer>
 				<Chat
 					key='0'
-					id='common'
-					mode='common'
-					name='Мусорка'
+					id='webrtc'
+					mode='webrtc'
+					name='WebRTC'
+					time=''
+					last_message=''
+				/>
+				<Chat
+					key='1'
+					id='centrifuge'
+					mode='centrifuge'
+					name='Centrifuge'
 					time=''
 					last_message=''
 				/>
