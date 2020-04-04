@@ -3,13 +3,17 @@
 	"name": "Track Mail 2020 Exucutional",
 	"icons": [
 		{
+			"src": "logo_144x144.svg",
+			"sizes": "192x192",
+			"type": "image/svg+xml"
+		},
+		{
 			"src": "logo.svg",
 			"sizes": "400x396",
 			"type": "image/svg+xml"
 		}
 	],
-	"start_url": "/?source=pwa",
-	"scope": "/",
+	"start_url": "../2019-2-Track-Frontend-E-Konks/",
 	"display": "fullscreen",
 	"theme_color": "#8e25aa",
 	"background_color": "#ffffff"
