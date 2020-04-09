@@ -1,6 +1,6 @@
 import * as T from './types'
 
-export function memoize(fn: Function) {
+export function memoize(fn: Function): Function {
     const cache: T.ICache = {};
     let result: string = '';
     return async (...args: any[]) => {
