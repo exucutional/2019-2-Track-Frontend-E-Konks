@@ -146,6 +146,9 @@ docs/_book/
 jest_*/
 .jscpd/
 
+### Typescript ###
+ts/utils/**/*.js
+
 ### VScode ###
 *.vscode
 *.code-workspace
