@@ -1,15 +1,20 @@
 {
-	"short_name": "Track Mail 2019 Exucutional",
-	"name": "Track Mail 2019 Exucutional",
+	"short_name": "Track Mail 2020 Exucutional",
+	"name": "Track Mail 2020 Exucutional",
 	"icons": [
 		{
-			"src": "favicon.ico",
+			"src": "logo_144x144.svg",
 			"sizes": "192x192",
-			"type": "image/png"
+			"type": "image/svg+xml"
+		},
+		{
+			"src": "logo.svg",
+			"sizes": "400x396",
+			"type": "image/svg+xml"
 		}
 	],
-	"start_url": ".",
-	"display": "standalone",
-	"theme_color": "#000000",
+	"start_url": "../2019-2-Track-Frontend-E-Konks/",
+	"display": "fullscreen",
+	"theme_color": "#8e25aa",
 	"background_color": "#ffffff"
 }
