@@ -30,17 +30,17 @@ function BarChart(props: IProps) {
         .domain([0, d3.max(props.data, (data: T.IData) => data.value) as number]).nice()
         .range([height - margin.bottom, margin.top])
 
-    const xAxis = (g: any) => g
-        .attr("transform", `translate(0,${height - margin.bottom})`)
-        .call(d3.axisBottom(x).tickSizeOuter(0))
-
-    const yAxis = (g: any) => g
-        .attr("transform", `translate(${margin.left},0)`)
-        .call(d3.axisLeft(y))
-        .call((g: any) => g.select(".domain").remove())
-
     useEffect(() => {
         if (props.data && d3Container.current) {
+            const xAxis = (g: any) => g
+                .attr("transform", `translate(0,${height - margin.bottom})`)
+                .call(d3.axisBottom(x).tickSizeOuter(0))
+
+            const yAxis = (g: any) => g
+                .attr("transform", `translate(${margin.left},0)`)
+                .call(d3.axisLeft(y))
+                .call((g: any) => g.select(".domain").remove())
+
             const svg: any = d3
                 .select(d3Container.current)
                 .attr("viewBox", `0, 0, ${width}, ${height}`)
@@ -64,7 +64,7 @@ function BarChart(props: IProps) {
                 .attr("class", "y-axis")
                 .call(yAxis);
         }
-    }, [props.data, height, width, x, y]);
+    }, [props.data, height, width, x, y, margin]);
 
     return (
         <svg

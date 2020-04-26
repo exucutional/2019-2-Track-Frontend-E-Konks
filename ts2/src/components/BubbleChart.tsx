@@ -13,12 +13,6 @@ function BubbleChart(props: IProps) {
     const height: number = props.size.height;
     const width: number = props.size.width;
 
-    const pack = (data: T.IData[]) => d3.pack()
-        .size([width - 2, height - 2])
-        .padding(3)
-        (d3.hierarchy({children: data})
-        .sum((d: any) => d.value))
-
     const format = d3.format(",d");
 
     const color = d3.scaleOrdinal()
@@ -27,6 +21,12 @@ function BubbleChart(props: IProps) {
 
     useEffect(() => {
         if (props.data && d3Container.current) {
+            const pack = (data: T.IData[]) => d3.pack()
+                .size([width - 2, height - 2])
+                .padding(3)
+                (d3.hierarchy({children: data})
+                .sum((d: any) => d.value))
+
             const root = pack(props.data);
 
             const svg: any = d3
