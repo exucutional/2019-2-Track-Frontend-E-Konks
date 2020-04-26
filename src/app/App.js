@@ -27,6 +27,7 @@ class App extends Component {
 		});
 		this.setMessagesMode = this.setMessagesMode.bind(this);
 		this.setChatsMode = this.setChatsMode.bind(this);
+		this.setTitle = this.setTitle.bind(this);
 	}
 
 	setMessagesMode(id, t) {
@@ -44,17 +45,25 @@ class App extends Component {
 		}));
 	}
 
+	setTitle(value) {
+		this.setState(() => ({
+			'title': value,
+		}))
+	}
+
 	render() {
 		return (
 			<Router>
 				<Container>
 					<Header 
 						state={this.state} 
-						setChatsMode={this.setChatsMode}/>
+						setChatsMode={this.setChatsMode}
+						setTitle={this.setTitle}/>
 					<Body 
 						state={this.state}
 						setMessagesMode={this.setMessagesMode}
-						setContainer={this.setContainer}/>
+						setContainer={this.setContainer}
+						setTitle={this.setTitle}/>
 				</Container>
 			</Router>
 		);

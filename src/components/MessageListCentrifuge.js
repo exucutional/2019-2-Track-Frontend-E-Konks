@@ -2,16 +2,17 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react/destructuring-assignment */
 import { useEffect } from 'react'
+import { useParams } from "react-router-dom";
 import { getTime } from '../actions/time';
 import { EmptyMessageList, MessageList } from './MessageList';
 
 const Centrifuge = require('centrifuge');
 
-const MESSAGE_CREATE_URL = 'http://localhost:8000/messages/create/'
-const MESSAGES_URL = 'http://localhost:8000/messages/list/'
-const USER_SEARCH_URL = 'http://localhost:8000/users/search/'
+const MESSAGE_CREATE_URL = 'https://2020-tt-ek.mooo.com/messages/create/'
+const MESSAGES_URL = 'https://2020-tt-ek.mooo.com/messages/list/'
+const USER_SEARCH_URL = 'https://2020-tt-ek.mooo.com/users/search/'
 
-const CENTRIFUGE_WS_URL = 'ws://localhost:8001/connection/websocket';
+const CENTRIFUGE_WS_URL = 'wss://2020-tt-ek.mooo.com/centrifugo/connection/websocket/';
 
 const MessageCreate = (message) => {
 	const formData = new FormData();
@@ -33,12 +34,14 @@ function MessageListCentrifuge(props) {
 	const {
 		inputValue,
 		setInputValue,
-		messages,
 		setMessages,
 		userName,
 	} = props.state;
+	let {
+		messages,
+	} = props.state;
 	// eslint-disable-next-line react/prop-types
-	const chatId = '1';
+	const {chatId} = useParams();
 	const variableName = true;
 	const onSubmit = (values) => {
 		if (inputValue !== '') {
@@ -49,6 +52,10 @@ function MessageListCentrifuge(props) {
 				added_at: curTime,
 				content: inputValue,
 			}
+			messages.push(message);
+			const messagesCopy = messages.slice()
+			setMessages(messagesCopy);
+			messages = messagesCopy;
 			MessageCreate(message);
 			setInputValue('');
 		}

@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react/destructuring-assignment */
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
 	Switch,
 	Route,
@@ -14,7 +14,7 @@ import BackButton from './BackButton';
 import SearchButton from './SearchButton';
 import CheckButton from './CheckButton';
 import MenuBar from './MenuBar';
-import { save, load } from '../actions/localDb';
+import { save } from '../actions/localDb';
 import { getProfile } from '../actions/index';
 
 const TopBar = styled.div`
@@ -42,19 +42,8 @@ const ID = styled.div`
 `
 
 function ChatTitle(props) {
-	const { chatId } = useParams();
-	if (props.title !== '') {
-		return (
-			<Title>{ props.title }</Title>
-		)
-	}
-	const chats = load('chats');
-	let chatName = '';
-	if (chats !== null) {
-		chatName = load('chats').filter((chat) => chat.id === Number(chatId))[0].name;
-	}
-	return (
-		<Title>{ chatName }</Title>
+	return ( 
+		<Title>{ props.title }</Title>
 	);
 }
 
@@ -93,7 +82,7 @@ function Header(props) {
 					<Link to='/'>
 						<BackButton/>
 					</Link>
-					<ChatTitle/>
+					<ChatTitle title={props.state.title}/>
 					<span/>
 				</TopBar>
 			</Route>

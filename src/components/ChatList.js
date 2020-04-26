@@ -101,6 +101,7 @@ function ChatList(props) {
 					name='WebRTC'
 					time=''
 					last_message=''
+					setTitle={props.setTitle}
 				/>
 				<Chat
 					key='1'
@@ -109,6 +110,7 @@ function ChatList(props) {
 					name='Centrifuge'
 					time=''
 					last_message=''
+					setTitle={props.setTitle}
 				/>
 				<CreateChatButton onClick={InputOnClick} />
 				<NameInput
@@ -129,6 +131,7 @@ function ChatList(props) {
 					name='WebRTC'
 					time=''
 					last_message=''
+					setTitle={props.setTitle}
 				/>
 				<Chat
 					key='1'
@@ -137,6 +140,7 @@ function ChatList(props) {
 					name='Centrifuge'
 					time=''
 					last_message=''
+					setTitle={props.setTitle}
 				/>
 				{chats.map((chat) => (
 					<Chat
@@ -146,6 +150,7 @@ function ChatList(props) {
 						name={chat.name}
 						time={chat.time}
 						last_message={chat.last_message}
+						setTitle={props.setTitle}
 					/>
 				))}
 			</ChatContainer>

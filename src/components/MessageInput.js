@@ -41,7 +41,7 @@ const RightSide = styled.span`
 const SourceNameInput = styled.input`
 	display: flex;
 	border: none;
-
+	max-width: 20vw;
 `;
 
 function Source(props) {

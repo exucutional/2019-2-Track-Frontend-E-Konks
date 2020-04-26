@@ -83,11 +83,14 @@ function Chat(props) {
 	if (props.mode === 'webrtc') {
 		link = 'webrtc';
 	}
+	const onClick = () => {
+		props.setTitle(props.name)
+	}
 	return (
 		<Link to={`/chats/${link}`} id={`link-to-chat${props.id}`} style={ { 
 			textDecoration: 'none',
 			color: 'unset',
-		} }>
+		} } onClick={onClick}>
 			<RowContainer>
 				<svg width="70px" height="70px" viewBox="0 0 32 32">
 					<circle cx="16" cy="16" r="16" fill="rgba(25, 91, 125, 0.69)" />
@@ -107,6 +110,11 @@ function Chat(props) {
 	);
 }
 
+Chat.defaultProps = {
+	time: '',
+	last_message: '',
+}
+
 Chat.propTypes = {
 	id: PropTypes.oneOfType([
 		PropTypes.number,
@@ -114,8 +122,9 @@ Chat.propTypes = {
 	]).isRequired,
 	name: PropTypes.string.isRequired,
 	mode: PropTypes.string.isRequired,
-	time: PropTypes.string.isRequired,
-	last_message: PropTypes.string.isRequired,
+	time: PropTypes.string,
+	last_message: PropTypes.string,
+	setTitle: PropTypes.func.isRequired,
 };
 
 MessageIndicator.propTypes = {

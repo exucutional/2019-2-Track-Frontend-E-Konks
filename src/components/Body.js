@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react/destructuring-assignment */
 /* eslint-disable object-shorthand */
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import {
 	Switch,
 	Route
@@ -16,13 +16,15 @@ import ForeignIdInput from './ForeignIdInput';
 import { load } from '../actions/localDb';
 import { getProfile } from '../actions/index';
 
-const MESSAGES_EVENT_URL = 'http://localhost:8000/messages/events/'
+const MESSAGES_EVENT_URL = 'https://2020-tt-ek.mooo.com/messages/events/'
+
+const CHATS_LIST_URL = 'https://2020-tt-ek.mooo.com/chats/list/'
 
 const messageEvent = new EventSource(MESSAGES_EVENT_URL);
 
 function Body(props) {
 	const [chats, setChats] = useState(load('chats'));
-	const [localMessages, setLocalMessages] = useState(load('messages'));
+	const [localMessages, setLocalMessages] = useState([]);
 	const [messages, setMessages] = useState([]);
 	const [inputValue, setInputValue] = useState('');
 	const [inputMode, setInputMode] = useState(false);
@@ -76,23 +78,30 @@ function Body(props) {
 	if (messagesEnd) {
 		messagesEnd.scrollIntoView();
 	}
+	useEffect(() => {
+		const getChatList = () => {
+			fetch(CHATS_LIST_URL)
+				.then(response => response.json())
+				.then(data => {
+					setChats(data.chats)
+				})
+		}
+		getChatList();
+	}, []);
 	return (
 		<Switch>
 			<Route path='/chats/webrtc'>
 				<MessageListWebRTC state={ state }/>
 				<ForeignIdInput state={ state }/>
 			</Route>
-			<Route path='/chats/centrifuge'>
-				<MessageListCentrifuge state={ state }/>
-			</Route>
 			<Route path='/chats/:chatId'>
-				<LocalMessageList state={ state }/>
+				<MessageListCentrifuge state={ state }/>
 			</Route>
 			<Route path='/profile'>
 				<ProfileForm state={ state }/>
 			</Route>
 			<Route path='/'>
-				<ChatList state={ state }/>
+				<ChatList state={ state } setTitle={props.setTitle}/>
 			</Route>
 		</Switch>
 	);
