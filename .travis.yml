@@ -16,6 +16,7 @@ script:
   - npm run test
   - npm run build
 before_install:
+  - "cd ts2"
   - "sysctl kernel.unprivileged_userns_clone=1"
   - "export DISPLAY=:99.0"
 
@@ -23,9 +24,9 @@ deploy:
   provider: pages
   skip_cleanup: true
   github_token: $repo_token
-  local_dir: build
+  local_dir: ts2/build
   on:
     branch:
       - master
       - devel
-      - hw5
+      - hw7
