@@ -2,7 +2,6 @@ import React, { useRef, useEffect } from 'react';
 import * as d3 from 'd3';
 
 import * as T from '../types/Types';
-import { values, DefaultArcObject } from 'd3';
 
 interface IProps {
     data: T.IData[];
