@@ -29,7 +29,7 @@ function BubbleChart(props: IProps) {
 
             const root = pack(props.data);
 
-            const svg: any = d3
+            const svg: d3.Selection<null, unknown, null, undefined> = d3
                 .select(d3Container.current)
                 .attr("viewBox", `0, 0, ${width}, ${height}`)
                 .attr("font-size", 10)
@@ -44,12 +44,12 @@ function BubbleChart(props: IProps) {
             leaf.append("circle")
                 .attr("r", (d: any) => d.r)
                 .attr("fill-opacity", 0.7)
-                .attr("fill", (d: any) => color(d.data.group));
+                .attr("fill", (d: any) => color(d.data.group) as string);
 
             leaf.append("text")
                     .attr("clip-path", (d: any) => d.clipUid)
                 .selectAll("tspan")
-                .data((d: {data: T.IData}) => d.data.name === undefined ? "" : d.data.name.split(/(?=[A-Z][a-z])|\s+/g))
+                .data((d: any) => d.data.name === undefined ? "" : d.data.name.split(/(?=[A-Z][a-z])|\s+/g))
                 .join("tspan")
                     .attr("x", 0)
                     .text((d: any) => d);

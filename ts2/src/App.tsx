@@ -53,28 +53,18 @@ async function readData(path: string): Promise<T.IVisualizationProps> {
     let result: T.IVisualizationProps = {ages: [], nationalities: [], positions: []};
     result = await d3.csv(path).then((data: d3.DSVRowArray<string>) => {
         data.forEach((entry: d3.DSVRowString) => {
-            if (entry.Age !== undefined) {
-                if (readedData.ages[entry.Age] === undefined) {
-                    readedData.ages[entry.Age] = 0;
-                }
-                readedData.ages[entry.Age]++;
+            if (entry.Age) {
+                readedData.ages[entry.Age] = (readedData.ages[entry.Age] || 0) + 1;
             }
-            if (entry.Nationality !== undefined) {
-                if (readedData.nationalities[entry.Nationality] === undefined) {
-                    readedData.nationalities[entry.Nationality] = 0;
-                }
-                readedData.nationalities[entry.Nationality]++;
+            if (entry.Nationality) {
+                readedData.nationalities[entry.Nationality] = (readedData.nationalities[entry.Nationality] || 0) + 1;
             }
-            if (entry.Position !== undefined) {
-                if (readedData.positions[entry.Position] === undefined) {
-                    readedData.positions[entry.Position] = 0;
-                }
-                readedData.positions[entry.Position]++;
+            if (entry.Position) {
+                readedData.positions[entry.Position] = (readedData.positions[entry.Position] || 0) + 1;
             }
         });
         processData(readedData);
-        result = buildProps(readedData);
-        return result;
+        return buildProps(readedData);
     });
     return result;
 }
