@@ -27,10 +27,7 @@ function processData(readedData: ReadedData): void {
     Object.entries(readedData.nationalities).forEach(
         ([key, value]) => {
             if (value < 10) {
-                if (readedData.nationalities["Others"] === undefined) {
-                    readedData.nationalities["Others"] = 0;
-                }
-                readedData.nationalities["Others"] += value;
+                readedData.nationalities["Others"] = (readedData.nationalities["Others"] || 0) + value;
                 delete readedData.nationalities[key];
             }
         }
@@ -38,10 +35,7 @@ function processData(readedData: ReadedData): void {
     Object.entries(readedData.positions).forEach(
         ([key, value]) => {
             if (value < 100) {
-                if (readedData.positions["Others"] === undefined) {
-                    readedData.positions["Others"] = 0;
-                }
-                readedData.positions["Others"] += value;
+                readedData.positions["Others"] = (readedData.positions["Others"] || 0) + value;
                 delete readedData.positions[key];
             }
         }
