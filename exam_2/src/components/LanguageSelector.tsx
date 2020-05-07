@@ -1,5 +1,4 @@
-import React, { ReactHTMLElement, useEffect, useState, ReactElement } from 'react';
-import styled, { StyledComponent } from '@emotion/styled';
+import React from 'react';
 import { Tabs, Tab} from 'react-bootstrap';
 import * as T from '../types/Types';
 

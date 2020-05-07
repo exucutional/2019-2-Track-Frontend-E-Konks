@@ -1,10 +1,8 @@
 import { translate } from './translate';
-import React, { ReactHTMLElement, useEffect, useState, ReactElement } from 'react';
+import React, { ReactHTMLElement, useEffect, useState} from 'react';
 import styled, { StyledComponent } from '@emotion/styled';
 import TextField from './components/TextField';
 import LanguageSelector from './components/LanguageSelector';
-import * as T from './types/Types';
-import logo from './logo.svg';
 import './App.css';
 
 const Container: StyledComponent<any, ReactHTMLElement<HTMLDivElement>, HTMLDivElement> = styled.div`

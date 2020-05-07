@@ -1,4 +1,4 @@
-import React, { ReactHTMLElement, SyntheticEvent, ChangeEvent} from 'react';
+import React, { ReactHTMLElement } from 'react';
 import styled, { StyledComponent } from '@emotion/styled';
 import { Form } from 'react-bootstrap';
 import * as T from '../types/Types';
