@@ -10,13 +10,12 @@ services:
   - xvfb
 cache:
   directories:
-    - ts2/node_modules
+    - node_modules
 script:
-#  - npm run lint
+  - npm run lint
   - npm run test
   - npm run build
 before_install:
-  - "cd ts2"
   - "sysctl kernel.unprivileged_userns_clone=1"
   - "export DISPLAY=:99.0"
 
@@ -24,9 +23,9 @@ deploy:
   provider: pages
   skip_cleanup: true
   github_token: $repo_token
-  local_dir: ts2/build
+  local_dir: build
   on:
     branch:
       - master
       - devel
-      - hw7
+      - hw8
