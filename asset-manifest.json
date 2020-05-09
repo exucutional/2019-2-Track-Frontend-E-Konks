@@ -1,0 +1,25 @@
+{
+  "files": {
+    "main.css": "/2019-2-Track-Frontend-E-Konks/static/css/main.d1b05096.chunk.css",
+    "main.js": "/2019-2-Track-Frontend-E-Konks/static/js/main.2b2596ba.chunk.js",
+    "main.js.map": "/2019-2-Track-Frontend-E-Konks/static/js/main.2b2596ba.chunk.js.map",
+    "runtime-main.js": "/2019-2-Track-Frontend-E-Konks/static/js/runtime-main.ab785994.js",
+    "runtime-main.js.map": "/2019-2-Track-Frontend-E-Konks/static/js/runtime-main.ab785994.js.map",
+    "static/css/2.69121389.chunk.css": "/2019-2-Track-Frontend-E-Konks/static/css/2.69121389.chunk.css",
+    "static/js/2.9136a127.chunk.js": "/2019-2-Track-Frontend-E-Konks/static/js/2.9136a127.chunk.js",
+    "static/js/2.9136a127.chunk.js.map": "/2019-2-Track-Frontend-E-Konks/static/js/2.9136a127.chunk.js.map",
+    "index.html": "/2019-2-Track-Frontend-E-Konks/index.html",
+    "precache-manifest.1eb8b36cd9e13003413a9b8870e87511.js": "/2019-2-Track-Frontend-E-Konks/precache-manifest.1eb8b36cd9e13003413a9b8870e87511.js",
+    "service-worker.js": "/2019-2-Track-Frontend-E-Konks/service-worker.js",
+    "static/css/2.69121389.chunk.css.map": "/2019-2-Track-Frontend-E-Konks/static/css/2.69121389.chunk.css.map",
+    "static/css/main.d1b05096.chunk.css.map": "/2019-2-Track-Frontend-E-Konks/static/css/main.d1b05096.chunk.css.map",
+    "static/js/2.9136a127.chunk.js.LICENSE.txt": "/2019-2-Track-Frontend-E-Konks/static/js/2.9136a127.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.ab785994.js",
+    "static/css/2.69121389.chunk.css",
+    "static/js/2.9136a127.chunk.js",
+    "static/css/main.d1b05096.chunk.css",
+    "static/js/main.2b2596ba.chunk.js"
+  ]
+}
