@@ -10,12 +10,13 @@ services:
   - xvfb
 cache:
   directories:
-    - node_modules
+    - exam_2/node_modules
 script:
-  - npm run lint
+  # - npm run lint
   - npm run test
   - npm run build
 before_install:
+  - "cd exam_2"
   - "sysctl kernel.unprivileged_userns_clone=1"
   - "export DISPLAY=:99.0"
 
@@ -23,9 +24,9 @@ deploy:
   provider: pages
   skip_cleanup: true
   github_token: $repo_token
-  local_dir: build
+  local_dir: exam_2/build
   on:
     branch:
       - master
       - devel
-      - hw8
+      - exam_2
